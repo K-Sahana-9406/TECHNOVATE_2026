@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const Countdown = ({ targetDate }) => {
+const Countdown = ({ targetDate, inline = false }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -28,6 +28,29 @@ const Countdown = ({ targetDate }) => {
 
     return () => clearInterval(timer);
   }, [targetDate]);
+
+  // Inline format for mobile: 10D 05H 30M 20S
+  if (inline) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="inline-flex items-center gap-1 text-white font-bold"
+      >
+        <span className="text-cyan-400">{String(timeLeft.days).padStart(2, '0')}</span>
+        <span className="text-slate-400 text-sm">D</span>
+        <span className="text-slate-600 mx-1">|</span>
+        <span className="text-cyan-400">{String(timeLeft.hours).padStart(2, '0')}</span>
+        <span className="text-slate-400 text-sm">H</span>
+        <span className="text-slate-600 mx-1">|</span>
+        <span className="text-cyan-400">{String(timeLeft.minutes).padStart(2, '0')}</span>
+        <span className="text-slate-400 text-sm">M</span>
+        <span className="text-slate-600 mx-1">|</span>
+        <span className="text-cyan-400">{String(timeLeft.seconds).padStart(2, '0')}</span>
+        <span className="text-slate-400 text-sm">S</span>
+      </motion.div>
+    );
+  }
 
   const TimeUnit = ({ value, label }) => (
     <motion.div

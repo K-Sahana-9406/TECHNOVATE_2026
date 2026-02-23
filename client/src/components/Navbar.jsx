@@ -38,20 +38,20 @@ const Navbar = () => {
       <div className="container-wide px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+          <Link to="/" className="flex items-center space-x-2 md:space-x-3 group">
+            <div className="relative w-12 h-12 md:w-20 md:h-20 flex-shrink-0">
               <img 
                 src={IT_logo} 
                 alt="IT Logo" 
                 className="w-full h-full object-contain rounded-xl" 
               />
             </div>
-            <div className="hidden sm:block">
-              <span className="text-xl md:text-2xl font-bold text-white tracking-tight">
+            <div className="flex flex-col">
+              <span className="text-sm md:text-xl md:md:text-2xl font-bold text-white tracking-tight">
                 Technovate
               </span>
               <span className="hidden md:block text-xs text-cyan-400 font-medium -mt-1">
-                Intercollege IT Fest
+                Department of Information Technology
               </span>
             </div>
           </Link>

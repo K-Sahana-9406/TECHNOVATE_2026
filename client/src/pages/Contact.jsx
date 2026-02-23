@@ -109,7 +109,7 @@ const Contact = () => {
         </motion.div>
 
         {/* Desktop: Contact Cards Grid */}
-        <div className="hidden md:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="hidden md:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           <ContactCard
             title={contactInfo.secretaries.title}
             icon={FaUserTie}
@@ -123,17 +123,12 @@ const Contact = () => {
             color="from-green-500 to-emerald-600"
           />
           <ContactCard
-            title={contactInfo.techCoordinators.title}
+            title={contactInfo.eventCoordinators.title}
             icon={FaLaptopCode}
-            members={contactInfo.techCoordinators.members}
+            members={contactInfo.eventCoordinators.members}
             color="from-purple-500 to-pink-600"
           />
-          <ContactCard
-            title={contactInfo.nonTechCoordinators.title}
-            icon={FaPalette}
-            members={contactInfo.nonTechCoordinators.members}
-            color="from-amber-500 to-orange-600"
-          />
+          
         </div>
 
         {/* Mobile: Horizontal Scroll Contact Cards */}
@@ -152,17 +147,12 @@ const Contact = () => {
               color="from-green-500 to-emerald-600"
             />
             <MobileContactCard
-              title={contactInfo.techCoordinators.title}
+              title={contactInfo.eventCoordinators.title}
               icon={FaLaptopCode}
-              members={contactInfo.techCoordinators.members}
+              members={contactInfo.eventCoordinators.members}
               color="from-purple-500 to-pink-600"
             />
-            <MobileContactCard
-              title={contactInfo.nonTechCoordinators.title}
-              icon={FaPalette}
-              members={contactInfo.nonTechCoordinators.members}
-              color="from-amber-500 to-orange-600"
-            />
+         
           </div>
         </div>
 

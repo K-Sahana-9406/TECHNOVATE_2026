@@ -318,12 +318,11 @@ app.post('/api/submit-to-sheets', async (req, res) => {
       eventNames,
       participants, // Array of all participants
       passType,
-      amount,
-      transactionId
+      amount
     } = req.body;
 
-    console.log('Received transactionId:', transactionId);
-    console.log('Request body:', req.body);
+    console.log('=== SUBMIT TO SHEETS DEBUG ===');
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
 
     if (!GOOGLE_SCRIPT_URL) {
       return res.status(500).json({
@@ -350,11 +349,13 @@ app.post('/api/submit-to-sheets', async (req, res) => {
         year: participant.year,
         passType: passType,
         amount: amount,
-        transactionId: transactionId || 'N/A',
         isPrimary: i === 0 ? 'Yes' : 'No'
       };
+      
+      console.log(`Row ${i} data being sent:`, JSON.stringify(rowData, null, 2));
 
       try {
+        console.log(`Sending to Google Script for participant ${i}...`);
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
           headers: {
@@ -363,13 +364,24 @@ app.post('/api/submit-to-sheets', async (req, res) => {
           body: JSON.stringify(rowData)
         });
 
-        const result = await response.json();
+        console.log(`Response status for participant ${i}:`, response.status);
+        const responseText = await response.text();
+        console.log(`Response text for participant ${i}:`, responseText);
+        
+        let result;
+        try {
+          result = JSON.parse(responseText);
+        } catch (e) {
+          result = { rawResponse: responseText };
+        }
+        
         results.push({
-          success: true,
+          success: response.ok,
           participant: participant.name,
           result
         });
       } catch (error) {
+        console.error(`Error for participant ${i}:`, error.message);
         results.push({
           success: false,
           participant: participant.name,

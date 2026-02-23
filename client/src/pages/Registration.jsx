@@ -170,7 +170,7 @@ const Registration = () => {
       }).filter(Boolean);
 
       // Step 1: Submit to Google Sheets via backend (AFTER payment)
-      console.log('Submitting to sheets...', { registrationId, transactionId: transactionId.trim() });
+      console.log('Submitting to sheets...', { registrationId });
       const sheetsResponse = await fetch(`${API_URL}/api/submit-to-sheets`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -179,8 +179,7 @@ const Registration = () => {
           eventNames: allEventNames.join(', '),
           participants: allParticipants,
           passType: selectedPass?.name,
-          amount: selectedPass?.price,
-          transactionId: transactionId.trim()
+          amount: selectedPass?.price
         })
       });
 
@@ -293,16 +292,16 @@ const Registration = () => {
                 onChange={(e) => setTransactionId(e.target.value)}
                 className="input-field w-full"
                 placeholder="Enter 12-digit UTR number"
-                maxLength={20}
+                maxLength={12}
               />
               <p className="text-slate-400 text-xs mt-2">
-                Find this in your UPI app payment history (e.g., Google Pay, PhonePe, Paytm)
+                Find this 12-digit number in your UPI app payment history
               </p>
             </div>
 
             <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl mb-6">
               <p className="text-amber-400 text-sm text-center">
-                <strong>Important:</strong> Enter your UPI Transaction ID after completing payment. Registration will be confirmed immediately.
+                <strong>Important:</strong> Enter your UPI Transaction ID after completing payment.
               </p>
             </div>
 
@@ -380,7 +379,7 @@ const Registration = () => {
 
             <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
               <p className="text-blue-400 text-sm text-center">
-                <strong>Note:</strong> Save your Registration ID and Transaction ID for future reference.
+                <strong>Note:</strong> Save your Registration ID for future reference.
               </p>
             </div>
           </motion.div>
@@ -410,10 +409,6 @@ const Registration = () => {
               <div className="flex justify-between items-center mb-4">
                 <span className="text-slate-400">Registration ID</span>
                 <span className="font-mono font-bold text-cyan-400">{registrationId}</span>
-              </div>
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-slate-400">Transaction ID</span>
-                <span className="font-mono font-bold text-cyan-400">{transactionId}</span>
               </div>
               <div className="flex justify-between items-center mb-4">
                 <span className="text-slate-400">Pass Type</span>

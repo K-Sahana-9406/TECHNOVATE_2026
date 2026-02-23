@@ -1,149 +1,107 @@
 export const events = {
   technical: [
     {
-      id: 'code-sprint',
-      name: 'Code Sprint Challenge',
+      id: 'codextreme',
+      name: 'Codextreme',
       type: 'technical',
-      description: 'A high-intensity coding competition where participants solve complex algorithmic problems under time pressure. Test your programming skills, logical thinking, and ability to perform under pressure.',
-      shortDescription: 'High-intensity coding competition with algorithmic challenges',
-      date: 'March 15, 2026',
-      time: '10:00 AM - 2:00 PM',
-      venue: 'Computer Lab A, IT Block',
-      prizePool: '₹15,000',
-      prizes: [
-        { position: '1st Prize', amount: '₹8,000', icon: '🥇' },
-        { position: '2nd Prize', amount: '₹5,000', icon: '🥈' },
-        { position: '3rd Prize', amount: '₹2,000', icon: '🥉' }
-      ],
+      description: 'CodeXtreme evaluates participants programming knowledge through technical aptitude, problem-solving skills, logo identification of programming languages, and logical challenges.',
+      shortDescription: 'Programming, aptitude, problem-solving challenge',
+      date: 'March 13, 2026',
+      time: '11:00 AM - 12:00 PM',
+      venue: 'Rudra Block, IT- III year',
       teamSize: '2-3 members',
-      contact: '+91 98765 43210',
       icon: '💻',
       rounds: [
-        'Round 1: MCQ Challenge - 30 minutes, 50 questions on DSA basics',
-        'Round 2: Coding Problems - Solve 3 algorithmic challenges in 90 minutes',
-        'Round 3: Debug & Optimize - Fix bugs and optimize code for efficiency'
+        'Round 1: Logo identification - Participants identify programming language logos shown in a slideshow and answer.',
+        'Round 2: Technical Aptitude - Solve technical aptitude questions based on logical and programming concepts.',
+        'Round 3: Problem Solving - Participants solve given technical or logical problems within the time limit.'
       ],
       coordinators: [
-        { name: 'Arun Kumar', phone: '+91 98765 43210' },
-        { name: 'Priya Sharma', phone: '+91 98765 43211' }
+        { name: 'Gokila S', phone: '+91 9344682707' },
+        { name: 'Reshmi R', phone: '+91 9677636575' }
       ],
       whatsappLink: 'https://chat.whatsapp.com/code-sprint-group'
     },
     {
-      id: 'debug-master',
-      name: 'Debug Masterclass',
+      id: 'Paper Ignite',
+      name: 'Paper Ignite',
       type: 'technical',
-      description: 'Put your debugging skills to the test! Identify and fix bugs in complex code snippets across multiple programming languages. Speed and accuracy are key to winning this challenge.',
-      shortDescription: 'Find and fix bugs in complex code snippets',
-      date: 'March 15, 2026',
-      time: '11:00 AM - 1:00 PM',
-      venue: 'Computer Lab B, IT Block',
-      prizePool: '₹10,000',
-      prizes: [
-        { position: '1st Prize', amount: '₹5,000', icon: '🥇' },
-        { position: '2nd Prize', amount: '₹3,000', icon: '🥈' },
-        { position: '3rd Prize', amount: '₹2,000', icon: '🥉' }
-      ],
-      teamSize: 'Individual',
-      contact: '+91 98765 43211',
+      description: 'PaperIgnite is a paper presentation event where participants present innovative ideas, research findings, and creative concepts. The event encourages knowledge sharing, critical thinking, and presentation skills, allowing teams to showcase their unique perspectives and shine with groundbreaking ideas.',
+      shortDescription: 'Present on innovative ideas, research findings, and creative concepts',
+      date: 'March 13, 2026',
+      time: '09:00 AM - 10:30 AM',
+      venue: 'Rudra block',
+      teamSize: '3-4 members',
       icon: '🐛',
       rounds: [
-        'Round 1: Syntax Errors - Find and fix syntax errors in 10 code snippets',
-        'Round 2: Logical Errors - Debug programs with logical flaws',
-        'Round 3: Optimization - Improve code efficiency and fix hidden bugs'
       ],
       coordinators: [
-        { name: 'Kavin A K', phone: '+91 98765 43212' },
-        { name: 'Sneha R', phone: '+91 98765 43213' }
+        { name: 'Kalaiselvi', phone: '+91 9360459483' },
+        { name: 'Ranjani S', phone: '+91 9894461422' }
       ],
       whatsappLink: 'https://chat.whatsapp.com/debug-master-group'
     },
     {
-      id: 'tech-quiz',
-      name: 'Tech Quiz Bowl',
+      id: 'Tech Trace',
+      name: 'Tech Trace',
       type: 'technical',
-      description: 'Battle it out in this comprehensive technology quiz covering programming, emerging tech, IT history, and current industry trends. Multiple rounds with increasing difficulty await!',
-      shortDescription: 'Comprehensive tech quiz with multiple rounds',
-      date: 'March 15, 2026',
-      time: '2:00 PM - 4:00 PM',
-      venue: 'Seminar Hall, Main Block',
-      prizePool: '₹12,000',
-      prizes: [
-        { position: '1st Prize', amount: '₹6,000', icon: '🥇' },
-        { position: '2nd Prize', amount: '₹4,000', icon: '🥈' },
-        { position: '3rd Prize', amount: '₹2,000', icon: '🥉' }
-      ],
-      teamSize: '2 members',
-      contact: '+91 98765 43212',
+      description: 'TechTrace is an exciting technical treasure hunt that challenges participants to explore databases, debug errors, write SQL queries, and decode hidden clues. The event tests analytical thinking, SQL knowledge, and problem-solving skills in a fast-paced competitive environment.',
+      shortDescription: 'Technical treasure hunt with multiple rounds',
+      date: 'March 13, 2026',
+      time: '9:00 AM - 10:30 AM',
+      venue: 'Seminar Hall, Rudra Block',
+      teamSize: '3-4 members',
       icon: '🧠',
-      rounds: [
-        'Round 1: Rapid Fire - 50 quick questions in 15 minutes',
-        'Round 2: Visual Round - Identify tech logos, UI elements, and code outputs',
-        'Round 3: Buzzer Round - Fastest finger first on advanced topics'
-      ],
       coordinators: [
-        { name: 'Rahul Menon', phone: '+91 98765 43214' },
-        { name: 'Divya N', phone: '+91 98765 43215' }
+        { name: 'Mohammed Riyaz A', phone: '+91 7010559916' },
+        { name: 'Sahana K', phone: '+91 9025639476' }
       ],
       whatsappLink: 'https://chat.whatsapp.com/tech-quiz-group'
     }
   ],
   nonTechnical: [
     {
-      id: 'tech-presentation',
-      name: 'Tech Innovation Presentation',
+      id: 'EyeSpy',
+      name: 'EyeSpy',
       type: 'non-technical',
-      description: 'Present your innovative tech ideas and solutions to a panel of judges. Showcase your creativity, research skills, and ability to communicate complex concepts effectively.',
-      shortDescription: 'Present innovative tech ideas and solutions',
-      date: 'March 15, 2026',
-      time: '10:30 AM - 12:30 PM',
-      venue: 'Conference Hall, Admin Block',
-      prizePool: '₹15,000',
-      prizes: [
-        { position: '1st Prize', amount: '₹8,000', icon: '🥇' },
-        { position: '2nd Prize', amount: '₹5,000', icon: '🥈' },
-        { position: '3rd Prize', amount: '₹2,000', icon: '🥉' }
-      ],
-      teamSize: '1-2 members',
-      contact: '+91 98765 43213',
+      description: 'Eyespy is a detective challenge that tests participants’ observation, memory, and analytical skills through crime scene analysis and interrogation-based problem solving.',
+      shortDescription: 'Test observation, memory, and analytical skills',
+      date: 'March 13, 2026',
+      time: '11:00 AM - 12:00 PM',
+      venue: 'Seminar Hall, Rudra Block',
+      teamSize: '2-3 members',
       icon: '📊',
       rounds: [
-        'Round 1: Abstract Submission - Submit your idea summary (pre-event)',
-        'Round 2: Presentation - 10-minute presentation + 5-minute Q&A',
-        'Round 3: Demo Round - Live demonstration of prototype/MVP'
+        'Round 1: Observation Challenge - Participants observe a scene or image for 30 seconds and answer questions based on details and clues.',
+        'Round 2: Interrogation Room - Teams analyze a crime story, interrogate characters, and use clues to identify the murderer through logical reasoning and teamwork.',
       ],
       coordinators: [
-        { name: 'Vikram S', phone: '+91 98765 43216' },
-        { name: 'Ananya P', phone: '+91 98765 43217' }
+        { name: 'Venmani M R', phone: '+91 93422 66960' },
+        { name: 'Karthiga T', phone: '+91 9894946624' }
       ],
       whatsappLink: 'https://chat.whatsapp.com/tech-presentation-group'
     },
     {
-      id: 'group-discussion',
-      name: 'Group Discussion Challenge',
+      id: 'Cinemania',
+      name: 'Cinemania',
       type: 'non-technical',
-      description: 'Engage in thought-provoking discussions on technology trends, ethical dilemmas, and future innovations. Test your communication skills, critical thinking, and ability to work in a team.',
-      shortDescription: 'Discuss tech trends and ethical dilemmas',
-      date: 'March 15, 2026',
-      time: '3:00 PM - 5:00 PM',
-      venue: 'Discussion Room, Library Block',
-      prizePool: '₹8,000',
-      prizes: [
-        { position: '1st Prize', amount: '₹4,000', icon: '🥇' },
-        { position: '2nd Prize', amount: '₹2,500', icon: '🥈' },
-        { position: '3rd Prize', amount: '₹1,500', icon: '🥉' }
-      ],
-      teamSize: '6-8 members per group',
-      contact: '+91 98765 43214',
+      description: 'CineMania is an exciting movie-based quiz that tests participants’ knowledge of films through background music identification, movie acting, and image-based guessing challenges.',
+      shortDescription: 'Test knowledge of films through background music identification, movie acting, and image-based guessing challenges',
+      date: 'March 13, 2026',
+      time: '1:30 PM - 2:30 PM',
+      venue: 'Seminar Hall, Rudra Block',
+      venue: 'Seminar, Rudra Block',
+      teamSize: '2 members',
       icon: '🗣️',
       rounds: [
-        'Round 1: Topic Introduction - 2-minute individual opening statement',
-        'Round 2: Group Discussion - 15-minute moderated discussion',
-        'Round 3: Conclusion - Summarize key points and reach consensus'
+        'Round 1: BGM Finding - Participants listen to background music and identify the movie.',
+        'Round 2: Dumb Charades (Movie Edition) - Teams act out movie names without speaking while teammates guess.',
+        'Round 3: Connection Round - Participants connect given image clues to identify the movie.'
+       
       ],
       coordinators: [
-        { name: 'Sanjay K', phone: '+91 98765 43218' },
-        { name: 'Meera T', phone: '+91 98765 43219' }
+        { name: 'Madhumitha M', phone: '+91 8124430294' },
+        { name: 'Infant Athina J', phone: '+91 8610673937' }
       ],
       whatsappLink: 'https://chat.whatsapp.com/group-discussion-group'
     }
@@ -169,31 +127,25 @@ export const contactInfo = {
   secretaries: {
     title: 'Secretaries',
     members: [
-      { role: 'General Secretary', name: 'Rahesh Kumar', phone: '+91 98765 43210' },
-      { role: 'Joint Secretary', name: 'Priya Sharma', phone: '+91 98765 43211' }
+      { role: 'General Secretary', name: 'Santhosh Kumar S', phone: '+91 9025490023' },
+      { role: 'Joint Secretary', name: 'Nithya R', phone: '+91 9082167338' }
     ]
   },
   treasurers: {
     title: 'Treasurers',
     members: [
-      { role: 'Treasurer', name: 'Arun Venkatesh', phone: '+91 98765 43212' },
-      { role: 'Joint Treasurer', name: 'Divya Menon', phone: '+91 98765 43213' }
+      { role: 'Treasurer', name: 'Aravindh R', phone: '+91 7418070889' },
+      { role: 'Joint Treasurer', name: 'Karthiga T', phone: '+91 9894946624' }
     ]
   },
-  techCoordinators: {
-    title: 'Tech Coordinators',
+  eventCoordinators: {
+    title: 'Event Coordinators',
     members: [
-      { role: 'Technical Lead', name: 'Kavin A K', phone: '+91 98765 43214' },
-      { role: 'Technical Co-Lead', name: 'Sneha R', phone: '+91 98765 43215' }
-    ]
-  },
-  nonTechCoordinators: {
-    title: 'Non-Tech Coordinators',
-    members: [
-      { role: 'Non-Tech Lead', name: 'Vikram S', phone: '+91 98765 43216' },
-      { role: 'Non-Tech Co-Lead', name: 'Ananya P', phone: '+91 98765 43217' }
+      { role: 'Technical Lead', name: 'Madhan Kumar M', phone: '+91 9677068776' },
+      { role: 'Technical Co-Lead', name: 'Madhumitha M', phone: '+91 8124430294' }
     ]
   }
+ 
 };
 
-export const eventDate = new Date('2026-03-15T09:00:00');
+export const eventDate = new Date('2026-03-13T09:00:00');

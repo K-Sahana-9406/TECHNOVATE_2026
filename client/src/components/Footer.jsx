@@ -1,41 +1,25 @@
-import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-950 border-t border-slate-800 py-8">
-      <div className="container-wide px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Logo & Name */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold">
-              T
-            </div>
-            <div>
-              <p className="font-bold text-white">Technovate 2026</p>
-              <p className="text-sm text-slate-400">Intercollege IT Fest</p>
-            </div>
-          </div>
-
-          {/* Event Info */}
-          <div className="flex items-center gap-6 text-slate-400 text-sm">
-            <div className="flex items-center gap-2">
-              <FaCalendarAlt className="w-4 h-4 text-cyan-400" />
-              <span>March 15, 2026</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FaMapMarkerAlt className="w-4 h-4 text-cyan-400" />
-              <span>GCT, Coimbatore</span>
-            </div>
-          </div>
+    <footer className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-950 border-t border-slate-800">
+      <div className="container-wide">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="text-slate-400 text-xs md:text-sm">
+            © 2026 Technovate – Government College of Technology
+          </p>
+          <a 
+            href="https://maps.google.com/?q=Government+College+of+Technology+Coimbatore"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-slate-400 hover:text-cyan-400 transition-colors text-xs md:text-sm"
+          >
+            <FaMapMarkerAlt className="text-cyan-400" />
+            <span className="hidden md:inline">Government College of Technology, Coimbatore</span>
+            <span className="md:hidden">GCT, Coimbatore</span>
+          </a>
+          <p className="text-slate-500 text-xs">Developed by Sahana Kathiresan</p>
         </div>
-
-        {/* Divider */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-700 to-transparent my-6" />
-
-        {/* Copyright */}
-        <p className="text-center text-slate-500 text-sm">
-          © 2026 Technovate | All Rights Reserved
-        </p>
       </div>
     </footer>
   );

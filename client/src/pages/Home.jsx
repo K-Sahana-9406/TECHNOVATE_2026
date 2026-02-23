@@ -7,8 +7,6 @@ import {
   FaUsers, 
   FaUser,
   FaGraduationCap,
-  FaCalendarAlt,
-  FaMapMarkerAlt,
   FaArrowRight,
   FaWhatsapp,
   FaInstagram,
@@ -19,8 +17,7 @@ import {
   FaBook,
   FaAward,
   FaTicketAlt,
-  FaCheckCircle,
-  FaGlobe
+  FaCheckCircle
 } from 'react-icons/fa';
 import Countdown from '../components/Countdown';
 import { eventDate, contactInfo, events } from '../data/events';
@@ -88,24 +85,39 @@ const Home = () => {
         <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 py-20">
           <div className="flex flex-col items-center justify-center min-h-[80vh]">
             
-            {/* Header Row: Logo Left, College Center */}
+            {/* DESKTOP: Header Row - Logo Left, College Center */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-8"
+              className="hidden md:flex w-full flex-row items-center justify-center gap-8 mb-8"
             >
-              {/* Logo - Left aligned on mobile, left of text on desktop */}
-              <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+              <div className="w-20 h-20 flex-shrink-0">
                 <img 
                   src={gct_logo} 
                   alt="GCT Logo" 
                   className="w-full h-full object-contain drop-shadow-lg" 
                 />
               </div>
-              
-              {/* College Name - Centered */}
               <div className="text-center">
-                <p className="text-xl md:text-3xl font-bold text-white tracking-tight">Government College of Technology</p>
+                <p className="text-3xl font-bold text-white tracking-tight">Government College of Technology</p>
+              </div>
+            </motion.div>
+
+            {/* MOBILE: Header - Logo and College inline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex md:hidden w-full items-center justify-center gap-3 mb-4"
+            >
+              <div className="w-12 h-12 flex-shrink-0">
+                <img 
+                  src={gct_logo} 
+                  alt="GCT Logo" 
+                  className="w-full h-full object-contain drop-shadow-lg" 
+                />
+              </div>
+              <div className="text-left">
+                <p className="text-sm font-bold text-white tracking-tight leading-tight">Government College<br/>of Technology</p>
               </div>
             </motion.div>
 
@@ -114,9 +126,9 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="mb-6"
+              className="mb-4 md:mb-6"
             >
-              <p className="text-lg md:text-xl font-medium text-cyan-400">March 15, 2026</p>
+              <p className="text-base md:text-xl font-medium text-cyan-400">March 15, 2026</p>
             </motion.div>
 
             {/* Main Title */}
@@ -124,7 +136,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 text-center"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-3 md:mb-4 text-center"
             >
               <span className="text-white">Technovate</span>
               <span className="gradient-text"> 2026</span>
@@ -135,20 +147,33 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-xl sm:text-2xl md:text-3xl text-slate-300 mb-8 font-light text-center"
+              className="text-lg sm:text-xl md:text-3xl text-slate-300 mb-6 md:mb-8 font-light text-center"
             >
               Intercollege IT Fest
             </motion.p>
 
-            {/* Countdown */}
+            {/* DESKTOP: Normal Countdown */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mb-12"
+              className="hidden md:block mb-12"
             >
               <p className="text-slate-400 mb-6 text-sm uppercase tracking-widest text-center">Event Starts In</p>
               <Countdown targetDate={eventDate} />
+            </motion.div>
+
+            {/* MOBILE: Inline Countdown */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="md:hidden mb-8"
+            >
+              <p className="text-slate-400 mb-2 text-xs uppercase tracking-widest text-center">Event Starts In</p>
+              <div className="glass-card rounded-xl px-4 py-2">
+                <Countdown targetDate={eventDate} inline={true} />
+              </div>
             </motion.div>
 
             {/* CTA Buttons */}
@@ -242,27 +267,66 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* Desktop: Grid Layout */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6">
-            {allEvents.slice(0, 6).map((event, index) => (
-              <motion.div
-                key={event.id}
-                {...fadeInUp}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer"
-                onClick={() => window.location.href = '/events'}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <event.icon className="w-6 h-6 text-cyan-400" />
-                  <h3 className="text-lg font-bold text-white">{event.name}</h3>
-                </div>
-                <p className="text-slate-400 text-sm line-clamp-2">{event.shortDescription}</p>
-                <div className="mt-4 flex items-center text-cyan-400 text-sm">
-                  <span>View Details</span>
-                  <FaArrowRight className="w-4 h-4 ml-2" />
-                </div>
-              </motion.div>
-            ))}
+          {/* DESKTOP: Technical Events Section */}
+          <div className="hidden md:block mb-12">
+            <motion.div {...fadeInUp} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                <FaLaptopCode className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white">Technical Events</h3>
+            </motion.div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+              {events.technical.map((event, index) => (
+                <motion.div
+                  key={event.id}
+                  {...fadeInUp}
+                  transition={{ delay: index * 0.1 }}
+                  className="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer"
+                  onClick={() => window.location.href = '/events'}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <event.icon className="w-6 h-6 text-cyan-400" />
+                    <h3 className="text-lg font-bold text-white">{event.name}</h3>
+                  </div>
+                  <p className="text-slate-400 text-sm line-clamp-2">{event.shortDescription}</p>
+                  <div className="mt-4 flex items-center text-cyan-400 text-sm">
+                    <span>View Details</span>
+                    <FaArrowRight className="w-4 h-4 ml-2" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* DESKTOP: Non-Technical Events Section */}
+          <div className="hidden md:block">
+            <motion.div {...fadeInUp} className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                <FaUsers className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white">Non-Technical Events</h3>
+            </motion.div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+              {events.nonTechnical.map((event, index) => (
+                <motion.div
+                  key={event.id}
+                  {...fadeInUp}
+                  transition={{ delay: index * 0.1 }}
+                  className="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer"
+                  onClick={() => window.location.href = '/events'}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <event.icon className="w-6 h-6 text-cyan-400" />
+                    <h3 className="text-lg font-bold text-white">{event.name}</h3>
+                  </div>
+                  <p className="text-slate-400 text-sm line-clamp-2">{event.shortDescription}</p>
+                  <div className="mt-4 flex items-center text-cyan-400 text-sm">
+                    <span>View Details</span>
+                    <FaArrowRight className="w-4 h-4 ml-2" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Mobile: Technical Events Row */}
@@ -644,38 +708,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-6 md:py-8 px-4 sm:px-6 lg:px-8 bg-slate-950 border-t border-slate-800">
-        <div className="container-wide">
-          {/* Mobile: Compact */}
-          <div className="md:hidden flex flex-col items-center gap-3">
-            <a 
-              href="https://maps.google.com/?q=Government+College+of+Technology+Coimbatore"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-slate-400 text-sm hover:text-cyan-400 transition-colors"
-            >
-              <FaMapMarkerAlt className="text-cyan-400" />
-              GCT, Coimbatore
-            </a>
-            <p className="text-slate-500 text-xs">Developed by Sahana K</p>
-          </div>
 
-          {/* Desktop: Normal */}
-          <div className="hidden md:flex flex-col md:flex-row items-center justify-between gap-4">
-            <a 
-              href="https://maps.google.com/?q=Government+College+of+Technology+Coimbatore"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors"
-            >
-              <FaMapMarkerAlt className="text-cyan-400" />
-              Government College of Technology, Coimbatore
-            </a>
-            <p className="text-slate-500 text-sm">Developed by Sahana K</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

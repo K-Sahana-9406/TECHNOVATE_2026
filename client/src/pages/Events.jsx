@@ -124,11 +124,28 @@ const Events = () => {
                   <p className="text-xs text-slate-400 mb-1">Team Size: <span className="text-white">{event.teamSize}</span></p>
                 </div>
 
+                {/* Rounds Section */}
+                {event.rounds && event.rounds.length > 0 && (
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold text-cyan-400 mb-2">Rounds:</p>
+                    <div className="space-y-2">
+                      {event.rounds.map((round, idx) => (
+                        <div key={idx} className="flex gap-2 text-xs">
+                          <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center flex-shrink-0 font-bold">
+                            {idx + 1}
+                          </span>
+                          <p className="text-slate-300">{round}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {event.coordinators && (
                   <div className="mb-3">
-                    <p className="text-xs text-slate-400 mb-1">Coordinators:</p>
+                    <p className="text-xs font-semibold text-cyan-400 mb-1">Coordinators:</p>
                     {event.coordinators.map((coord, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs">
+                      <div key={idx} className="flex items-center gap-2 text-xs mb-1">
                         <span className="text-white">{coord.name}</span>
                         <a href={`tel:${coord.phone.replace(/\s/g, '')}`} className="text-cyan-400">
                           {coord.phone}
@@ -138,7 +155,7 @@ const Events = () => {
                   </div>
                 )}
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 pt-2 border-t border-slate-700/50">
                   <a
                     href={event.whatsappLink}
                     target="_blank"

@@ -1,0 +1,18 @@
+{
+  "name": "technovate-2026",
+  "version": "1.0.0",
+  "description": "Technovate 2026 - Intercollege IT Fest",
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "server": "cd server && node server.js",
+    "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview"
+  },
+  "keywords": ["technovate", "it-fest", "gct", "coimbatore"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

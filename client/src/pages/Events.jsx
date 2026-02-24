@@ -13,7 +13,8 @@ import {
   FaUserTie,
   FaArrowRight,
   FaChevronDown,
-  FaChevronUp
+  FaChevronUp,
+    FaLaptopCode  
 } from 'react-icons/fa';
 import { events } from '../data/events';
 
@@ -35,7 +36,9 @@ const Events = () => {
         onClick={() => setSelectedEvent(event)}
       >
         <div className="flex items-start gap-3 mb-3">
-          <div className="text-3xl">{event.icon}</div>
+          <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+            <event.icon className="w-5 h-5 text-white" />
+          </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-bold text-white mb-1 truncate">{event.name}</h3>
             <p className="text-slate-400 text-sm line-clamp-2">{event.shortDescription}</p>
@@ -81,7 +84,9 @@ const Events = () => {
           onClick={() => setExpandedEvent(isExpanded ? null : event.id)}
           className="w-full p-4 flex items-center gap-3 text-left"
         >
-          <div className="text-2xl">{event.icon}</div>
+          <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <event.icon className="w-4 h-4 text-white" />
+          </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-white text-sm truncate">{event.name}</h3>
             <p className="text-slate-400 text-xs line-clamp-1">{event.shortDescription}</p>
@@ -215,7 +220,9 @@ const Events = () => {
 
               {/* Header */}
               <div className="flex items-start gap-4 mb-6 pr-12">
-                <div className="text-5xl">{event.icon}</div>
+                <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <event.icon className="w-7 h-7 text-white" />
+                </div>
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{event.name}</h2>
                   <p className="text-slate-400">{event.description}</p>
@@ -348,8 +355,8 @@ const Events = () => {
             viewport={{ once: true }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-2xl">
-              💻
+            <div className="w-12 h-12 rounded-xl  flex items-center justify-center">
+              <FaLaptopCode className="w-6 h-6 text-cyan-400" />
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-white">Technical Events</h2>
@@ -372,8 +379,8 @@ const Events = () => {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-4"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-xl">
-              💻
+            <div className="w-10 h-10 rounded-xl  flex items-center justify-center">
+              <FaLaptopCode className="w-5 h-5 text-cyan-400" />
             </div>
             <h2 className="text-xl font-bold text-white">Technical Events</h2>
           </motion.div>
@@ -393,8 +400,8 @@ const Events = () => {
             viewport={{ once: true }}
             className="flex items-center gap-4 mb-8"
           >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-2xl">
-              🎨
+            <div className="w-12 h-12 rounded-xl  flex items-center justify-center">
+              <FaUsers className="w-6 h-6 text-cyan-400" />
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-white">Non-Technical Events</h2>
@@ -417,8 +424,8 @@ const Events = () => {
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-4"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-xl">
-              🎨
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+              <FaUsers className="w-5 h-5 text-cyan-400" />
             </div>
             <h2 className="text-xl font-bold text-white">Non-Technical Events</h2>
           </motion.div>

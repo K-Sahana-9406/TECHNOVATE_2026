@@ -11,9 +11,12 @@ import {
   FaUserTie,
   FaMoneyBillWave,
   FaLaptopCode,
-  FaPalette
+  FaPalette,
+  FaUsers,
+  FaStar
 } from 'react-icons/fa';
 import { contactInfo } from '../data/events';
+import gct_logo from '../assets/gct_logo.png';
 
 const Contact = () => {
   useEffect(() => {
@@ -120,13 +123,13 @@ const Contact = () => {
             title={contactInfo.treasurers.title}
             icon={FaMoneyBillWave}
             members={contactInfo.treasurers.members}
-            color="from-green-500 to-emerald-600"
+            color="from-cyan-500 to-blue-600"
           />
           <ContactCard
             title={contactInfo.eventCoordinators.title}
-            icon={FaLaptopCode}
+            icon={FaUsers}
             members={contactInfo.eventCoordinators.members}
-            color="from-purple-500 to-pink-600"
+            color="from-cyan-500 to-blue-600"
           />
           
         </div>
@@ -144,13 +147,13 @@ const Contact = () => {
               title={contactInfo.treasurers.title}
               icon={FaMoneyBillWave}
               members={contactInfo.treasurers.members}
-              color="from-green-500 to-emerald-600"
+              color="from-cyan-500 to-blue-600"
             />
             <MobileContactCard
               title={contactInfo.eventCoordinators.title}
-              icon={FaLaptopCode}
+              icon={FaUsers}
               members={contactInfo.eventCoordinators.members}
-              color="from-purple-500 to-pink-600"
+              color="from-cyan-500 to-blue-600"
             />
          
           </div>
@@ -165,9 +168,14 @@ const Contact = () => {
             </h2>
 
             <div className="space-y-4 md:space-y-6">
-              <div className="flex items-start gap-3 md:gap-4">
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg md:text-2xl flex-shrink-0">
-                  GCT
+              {/* College Logo and Name */}
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-12 h-12 md:w-14 md:h-14 flex-shrink-0">
+                  <img 
+                    src={gct_logo} 
+                    alt="GCT Logo" 
+                    className="w-full h-full object-contain rounded-lg"
+                  />
                 </div>
                 <div>
                   <h3 className="text-lg md:text-xl font-bold text-white">{contactInfo.college.name}</h3>

@@ -17,12 +17,17 @@ import {
   FaBook,
   FaAward,
   FaTicketAlt,
-  FaCheckCircle
+  FaCheckCircle,
+  FaChevronRight
 } from 'react-icons/fa';
 import Countdown from '../components/Countdown';
 import { eventDate, contactInfo, events } from '../data/events';
 import gct_logo from '../assets/gct_logo.png';
-
+import img1 from '../assets/IMG_4045.JPG.jpeg';
+import img2 from '../assets/IMG_4085.JPG.jpeg';
+import img3 from '../assets/IMG_4171.JPG.jpeg';
+import img4 from '../assets/IMG_4202.JPG.jpeg';
+import img5 from '../assets/background.JPG'
 const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,8 +41,8 @@ const Home = () => {
   };
 
   const stats = [
-    { icon: FaTrophy, value: '₹60,000+', label: 'Prize Pool' },
-    { icon: FaLightbulb, value: '5+', label: 'Events' },
+    { icon: FaTrophy, value: '₹10,000+', label: 'Prize Pool' },
+    { icon: FaLightbulb, value: '3+', label: 'Events' },
     { icon: FaUsers, value: '500+', label: 'Participants' },
     { icon: FaGraduationCap, value: '20+', label: 'Colleges' },
   ];
@@ -68,13 +73,13 @@ const Home = () => {
   const allEvents = [...events.technical, ...events.nonTechnical];
 
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section - Reorganized Header */}
+   <div className="overflow-x-hidden">
+      {/* Hero Section - Professional Header */}
       <section className="relative min-h-screen flex items-center justify-center">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80"
+            src={img5}
             alt="Technology Circuit Board"
             className="w-full h-full object-cover"
           />
@@ -82,14 +87,14 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 py-20">
-          <div className="flex flex-col items-center justify-center min-h-[80vh]">
+        <div className="relative z-10 container-wide px-4 sm:px-6 lg:px-8 pt-14 pb-12 md:pt-24 md:pb-16">
+          <div className="flex flex-col items-center justify-center">
             
             {/* DESKTOP: Header Row - Logo Left, College Center */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="hidden md:flex w-full flex-row items-center justify-center gap-8 mb-8"
+              className="hidden md:flex w-full flex-row items-center justify-center gap-5 mb-4"
             >
               <div className="w-20 h-20 flex-shrink-0">
                 <img 
@@ -105,11 +110,11 @@ const Home = () => {
 
             {/* MOBILE: Header - Logo and College inline */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex md:hidden w-full items-center justify-center gap-3 mb-4"
+              className="flex md:hidden w-full items-center justify-center gap-3 mb-3"
             >
-              <div className="w-12 h-12 flex-shrink-0">
+              <div className="w-14 h-14 flex-shrink-0">
                 <img 
                   src={gct_logo} 
                   alt="GCT Logo" 
@@ -117,7 +122,7 @@ const Home = () => {
                 />
               </div>
               <div className="text-left">
-                <p className="text-sm font-bold text-white tracking-tight leading-tight">Government College<br/>of Technology</p>
+                <p className="text-sm font-bold text-white tracking-tight leading-snug">Government College<br/>of Technology</p>
               </div>
             </motion.div>
 
@@ -126,9 +131,9 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="mb-4 md:mb-6"
+              className="mb-4 md:mb-5"
             >
-              <p className="text-base md:text-xl font-medium text-cyan-400">March 15, 2026</p>
+              <p className="text-base md:text-xl font-medium text-cyan-400">March 13, 2026</p>
             </motion.div>
 
             {/* Main Title */}
@@ -149,7 +154,7 @@ const Home = () => {
               transition={{ delay: 0.3 }}
               className="text-lg sm:text-xl md:text-3xl text-slate-300 mb-6 md:mb-8 font-light text-center"
             >
-              Intercollege IT Fest
+              Department of Information Technology
             </motion.p>
 
             {/* DESKTOP: Normal Countdown */}
@@ -157,9 +162,9 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="hidden md:block mb-12"
+              className="hidden md:block mb-10"
             >
-              <p className="text-slate-400 mb-6 text-sm uppercase tracking-widest text-center">Event Starts In</p>
+              <p className="text-slate-400 mb-5 text-sm uppercase tracking-widest text-center">Event Starts In</p>
               <Countdown targetDate={eventDate} />
             </motion.div>
 
@@ -170,8 +175,8 @@ const Home = () => {
               transition={{ delay: 0.4 }}
               className="md:hidden mb-8"
             >
-              <p className="text-slate-400 mb-2 text-xs uppercase tracking-widest text-center">Event Starts In</p>
-              <div className="glass-card rounded-xl px-4 py-2">
+              <p className="text-slate-400 mb-3 text-xs uppercase tracking-widest text-center">Event Starts In</p>
+              <div className="glass-card rounded-xl px-4 py-3">
                 <Countdown targetDate={eventDate} inline={true} />
               </div>
             </motion.div>
@@ -196,24 +201,23 @@ const Home = () => {
                 </span>
               </Link>
             </motion.div>
+
+            {/* Lunch & Refreshments Notice */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="mt-6 md:mt-8"
+            >
+              <div className="glass-card rounded-xl px-4 py-3 md:px-6 md:py-4 border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
+                <p className="text-cyan-400 text-xs md:text-sm font-medium text-center flex items-center justify-center gap-2">
+                  <span className="text-lg md:text-xl">🍽️</span>
+                  Lunch (Non-Veg) & Refreshments will be provided for everyone
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center pt-2">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-cyan-400 rounded-full"
-            />
-          </div>
-        </motion.div>
       </section>
 
       {/* Stats Section - Mobile: Horizontal Scroll */}
@@ -236,21 +240,30 @@ const Home = () => {
           </div>
           
           {/* Mobile: Horizontal Scroll */}
-          <div className="md:hidden mobile-scroll snap-x-mandatory">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card rounded-2xl p-5 text-center flex-shrink-0 w-40 snap-center"
-              >
-                <stat.icon className="w-6 h-6 text-cyan-400 mx-auto mb-3" />
-                <p className="text-2xl font-bold gradient-text mb-1">{stat.value}</p>
-                <p className="text-slate-400 text-xs">{stat.label}</p>
-              </motion.div>
-            ))}
+          <div className="md:hidden">
+            <div className="mobile-scroll snap-x-mandatory">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="glass-card rounded-2xl p-5 text-center flex-shrink-0 w-40 snap-center"
+                >
+                  <stat.icon className="w-6 h-6 text-cyan-400 mx-auto mb-3" />
+                  <p className="text-2xl font-bold gradient-text mb-1">{stat.value}</p>
+                  <p className="text-slate-400 text-xs">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <span className="text-xs text-cyan-400 flex items-center gap-1">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                Scroll for more
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -270,8 +283,8 @@ const Home = () => {
           {/* DESKTOP: Technical Events Section */}
           <div className="hidden md:block mb-12">
             <motion.div {...fadeInUp} className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                <FaLaptopCode className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl  flex items-center justify-center">
+                <FaLaptopCode className="w-5 h-5 text-cyan-400" />
               </div>
               <h3 className="text-2xl font-bold text-white">Technical Events</h3>
             </motion.div>
@@ -301,8 +314,8 @@ const Home = () => {
           {/* DESKTOP: Non-Technical Events Section */}
           <div className="hidden md:block">
             <motion.div {...fadeInUp} className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
-                <FaUsers className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-xl  flex items-center justify-center">
+                <FaUsers className="w-5 h-5 text-cyan-400" />
               </div>
               <h3 className="text-2xl font-bold text-white">Non-Technical Events</h3>
             </motion.div>
@@ -347,12 +360,21 @@ const Home = () => {
                   onClick={() => window.location.href = '/events'}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <event.icon className="w-5 h-5 text-cyan-400" />
+                    <div className="w-6 h-6 bg-gradient-to-br from-cyan-500 to-blue-600 rounded flex items-center justify-center">
+                      <event.icon className="w-3 h-3 text-white" />
+                    </div>
                     <h4 className="font-semibold text-white text-sm">{event.name}</h4>
                   </div>
                   <p className="text-slate-400 text-xs line-clamp-2">{event.shortDescription}</p>
                 </motion.div>
               ))}
+            </div>
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <span className="text-xs text-cyan-400 flex items-center gap-1">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                Scroll for more
+              </span>
             </div>
           </div>
 
@@ -374,19 +396,28 @@ const Home = () => {
                   onClick={() => window.location.href = '/events'}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <event.icon className="w-5 h-5 text-cyan-400" />
+                    <div className="w-6 h-6 bg-gradient-to-br from-cyan-500 to-blue-600 rounded flex items-center justify-center">
+                      <event.icon className="w-3 h-3 text-white" />
+                    </div>
                     <h4 className="font-semibold text-white text-sm">{event.name}</h4>
                   </div>
                   <p className="text-slate-400 text-xs line-clamp-2">{event.shortDescription}</p>
                 </motion.div>
               ))}
             </div>
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <span className="text-xs text-cyan-400 flex items-center gap-1">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                Scroll for more
+              </span>
+            </div>
           </div>
 
           {/* View All Events Button */}
           <motion.div {...fadeInUp} className="text-center mt-8">
             <Link to="/events" className="btn-secondary inline-flex items-center gap-2">
-              View All Events
+              complete details
               <FaArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -410,8 +441,8 @@ const Home = () => {
             {[
               { name: 'Individual Pass', price: '₹200', members: '1 Member', icon: FaUser, desc: 'Full access to all events' },
               { name: 'Duo Pass', price: '₹350', members: '2 Members', icon: FaUsers, desc: 'Perfect for pairs' },
-              { name: 'Trio Pass', price: '₹500', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
-              { name: 'Quad Pass', price: '₹600', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
+              { name: 'Quad Pass', price: '₹650', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
+              { name: 'Octa Pass', price: '₹1400', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
             ].map((pass, index) => (
               <motion.div
                 key={pass.name}
@@ -431,30 +462,39 @@ const Home = () => {
           </div>
 
           {/* Mobile: Horizontal Scroll */}
-          <div className="md:hidden mobile-scroll snap-x-mandatory">
-            {[
-              { name: 'Individual', price: '₹200', members: '1 Member', desc: 'Full event access' },
-              { name: 'Duo', price: '₹350', members: '2 Members', desc: 'Perfect for pairs' },
-              { name: 'Trio', price: '₹500', members: '3 Members', desc: 'Small teams' },
-              { name: 'Quad', price: '₹600', members: '4 Members', desc: 'Best value' }
-            ].map((pass, index) => (
-              <motion.div
-                key={pass.name}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="glass-card rounded-xl p-4 flex-shrink-0 w-44 snap-center border border-cyan-500/20"
-              >
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg flex items-center justify-center mb-3">
-                  <FaTicketAlt className="w-5 h-5 text-cyan-400" />
-                </div>
-                <h3 className="font-bold text-white text-sm mb-1">{pass.name}</h3>
-                <p className="text-xl font-bold gradient-text mb-1">{pass.price}</p>
-                <p className="text-slate-400 text-xs mb-2">{pass.members}</p>
-                <p className="text-slate-300 text-xs">{pass.desc}</p>
-              </motion.div>
-            ))}
+          <div className="md:hidden">
+            <div className="mobile-scroll snap-x-mandatory">
+              {[
+        { name: 'Individual Pass', price: '₹200', members: '1 Member', icon: FaUser, desc: 'Full access to all events' },
+              { name: 'Duo Pass', price: '₹350', members: '2 Members', icon: FaUsers, desc: 'Perfect for pairs' },
+              { name: 'Quad Pass', price: '₹650', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
+              { name: 'Octa Pass', price: '₹1400', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
+              ].map((pass, index) => (
+                <motion.div
+                  key={pass.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="glass-card rounded-xl p-4 flex-shrink-0 w-44 snap-center border border-cyan-500/20"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg flex items-center justify-center mb-3">
+                    <FaTicketAlt className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm mb-1">{pass.name}</h3>
+                  <p className="text-xl font-bold gradient-text mb-1">{pass.price}</p>
+                  <p className="text-slate-400 text-xs mb-2">{pass.members}</p>
+                  <p className="text-slate-300 text-xs">{pass.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <span className="text-xs text-cyan-400 flex items-center gap-1">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                Scroll for more
+              </span>
+            </div>
           </div>
 
           {/* One Pass Info Box */}
@@ -505,41 +545,115 @@ const Home = () => {
           </div>
 
           {/* Mobile: Horizontal Scroll */}
-          <div className="md:hidden mobile-scroll snap-x-mandatory">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="glass-card rounded-xl p-4 flex-shrink-0 w-56 snap-center"
-              >
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg flex items-center justify-center mb-3">
-                  <item.icon className="w-5 h-5 text-cyan-400" />
-                </div>
-                <h3 className="font-bold text-white text-sm mb-2">{item.title}</h3>
-                <p className="text-slate-400 text-xs line-clamp-3">{item.description}</p>
-              </motion.div>
-            ))}
+          <div className="md:hidden">
+            <div className="mobile-scroll snap-x-mandatory">
+              {highlights.map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="glass-card rounded-xl p-4 flex-shrink-0 w-56 snap-center"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg flex items-center justify-center mb-3">
+                    <item.icon className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm mb-2">{item.title}</h3>
+                  <p className="text-slate-400 text-xs line-clamp-3">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <span className="text-xs text-cyan-400 flex items-center gap-1">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                Scroll for more
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* About IT Department - Mobile: Compact */}
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
+      {/* About IT Department */}
+      <section className="py-10 md:py-20 px-4 sm:px-6 lg:px-8 bg-slate-950/50">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Mobile View - Single Column Layout */}
+          <div className="lg:hidden">
             <motion.div {...fadeInUp}>
-              <div className="flex items-center gap-3 mb-4 md:mb-6">
-                <FaGraduationCap className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
-                <h2 className="text-2xl md:text-4xl font-bold">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-4">
+                <FaGraduationCap className="w-6 h-6 text-cyan-400" />
+                <h2 className="text-xl font-bold">
                   About <span className="gradient-text">IT Department</span>
                 </h2>
               </div>
               
-              {/* Desktop: Full description */}
-              <div className="hidden md:block space-y-4 text-slate-300">
+              {/* Description - Properly Wrapped */}
+              <p className="text-slate-300 text-sm mb-5 leading-relaxed text-justify">
+                The Information Technology Department at GCT Coimbatore is a hub of innovation 
+                and excellence. We nurture future technology leaders with state-of-the-art 
+                facilities and experienced faculty.
+              </p>
+              
+              {/* Stats Row */}
+              <div className="flex gap-3 mb-6">
+                <div className="glass-card rounded-lg p-3 flex-1 text-center">
+                  <p className="text-lg font-bold gradient-text">25+</p>
+                  <p className="text-slate-400 text-xs">Years of Excellence</p>
+                </div>
+                <div className="glass-card rounded-lg p-3 flex-1 text-center">
+                  <p className="text-lg font-bold gradient-text">1000+</p>
+                  <p className="text-slate-400 text-xs">Alumni Network</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Mobile: Horizontal Scroll Gallery */}
+            <motion.div {...fadeInUp} className="mt-2">
+              <div className="mobile-scroll snap-x-mandatory">
+                <img
+                  src={img1}
+                  alt="IT Department Event"
+                  className="rounded-xl glass-card h-32 w-48 object-cover flex-shrink-0 snap-center"
+                />
+                <img
+                  src={img2}
+                  alt="Tech Workshop"
+                  className="rounded-xl glass-card h-32 w-48 object-cover flex-shrink-0 snap-center"
+                />
+                <img
+                  src={img3}
+                  alt="Student Activities"
+                  className="rounded-xl glass-card h-32 w-48 object-cover flex-shrink-0 snap-center"
+                />
+                <img
+                  src={img4}
+                  alt="Department Celebration"
+                  className="rounded-xl glass-card h-32 w-48 object-cover flex-shrink-0 snap-center"
+                />
+              </div>
+              {/* Scroll Indicator */}
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <span className="text-xs text-cyan-400 flex items-center gap-1">
+                  <FaChevronRight className="w-3 h-3 animate-pulse" />
+                  Scroll for more
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Desktop View - Two Column Layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeInUp}>
+              <div className="flex items-center gap-3 mb-6">
+                <FaGraduationCap className="w-8 h-8 text-cyan-400" />
+                <h2 className="text-4xl font-bold">
+                  About <span className="gradient-text">IT Department</span>
+                </h2>
+              </div>
+              
+              <div className="space-y-4 text-slate-300">
                 <p>
                   The Information Technology Department at Government College of Technology, Coimbatore 
                   is a hub of innovation and excellence. Established with a vision to nurture future 
@@ -552,58 +666,39 @@ const Home = () => {
                 </p>
               </div>
               
-              {/* Mobile: Short description */}
-              <p className="md:hidden text-slate-300 text-sm mb-4">
-                The IT Department at GCT Coimbatore is a hub of innovation, nurturing future technology leaders with state-of-the-art facilities and experienced faculty.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-3 md:gap-4 mt-6">
-                <div className="glass-card rounded-xl p-3 md:p-4">
-                  <p className="text-xl md:text-2xl font-bold gradient-text">25+</p>
-                  <p className="text-slate-400 text-xs md:text-sm">Years of Excellence</p>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="glass-card rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold gradient-text">25+</p>
+                  <p className="text-slate-400 text-sm">Years of Excellence</p>
                 </div>
-                <div className="glass-card rounded-xl p-3 md:p-4">
-                  <p className="text-xl md:text-2xl font-bold gradient-text">1000+</p>
-                  <p className="text-slate-400 text-xs md:text-sm">Alumni Network</p>
+                <div className="glass-card rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold gradient-text">1000+</p>
+                  <p className="text-slate-400 text-sm">Alumni Network</p>
                 </div>
               </div>
             </motion.div>
 
             {/* Desktop: Image Grid */}
-            <motion.div {...fadeInUp} className="hidden lg:grid grid-cols-2 gap-4">
+            <motion.div {...fadeInUp} className="grid grid-cols-2 gap-4">
               <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
-                alt="Students collaborating"
-                className="rounded-2xl glass-card"
+                src={img1}
+                alt="IT Department Event"
+                className="rounded-2xl glass-card h-48 object-cover"
               />
               <img
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop"
-                alt="Tech workshop"
-                className="rounded-2xl glass-card mt-8"
+                src={img2}
+                alt="Tech Workshop"
+                className="rounded-2xl glass-card h-48 object-cover mt-8"
               />
               <img
-                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop"
-                alt="Event celebration"
-                className="rounded-2xl glass-card -mt-8"
+                src={img3}
+                alt="Student Activities"
+                className="rounded-2xl glass-card h-48 object-cover -mt-8"
               />
               <img
-                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop"
-                alt="Conference"
-                className="rounded-2xl glass-card"
-              />
-            </motion.div>
-
-            {/* Mobile: Compact Image Grid */}
-            <motion.div {...fadeInUp} className="lg:hidden grid grid-cols-2 gap-3">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&h=200&fit=crop"
-                alt="Students"
-                className="rounded-xl glass-card h-24 object-cover"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=300&h=200&fit=crop"
-                alt="Workshop"
-                className="rounded-xl glass-card h-24 object-cover"
+                src={img4}
+                alt="Department Celebration"
+                className="rounded-2xl glass-card h-48 object-cover"
               />
             </motion.div>
           </div>

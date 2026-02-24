@@ -1,3 +1,5 @@
+import { FaLaptopCode, FaBug, FaSearch, FaEye, FaCode, FaLightbulb, FaFilm } from 'react-icons/fa';
+
 export const events = {
   technical: [
     {
@@ -10,7 +12,7 @@ export const events = {
       time: '11:00 AM - 12:00 PM',
       venue: 'Rudra Block, IT- III year',
       teamSize: '2-3 members',
-      icon: '💻',
+      icon: FaCode,
       rounds: [
         'Round 1: Logo identification - Participants identify programming language logos shown in a slideshow and answer.',
         'Round 2: Technical Aptitude - Solve technical aptitude questions based on logical and programming concepts.',
@@ -32,7 +34,7 @@ export const events = {
       time: '09:00 AM - 10:30 AM',
       venue: 'Rudra block',
       teamSize: '3-4 members',
-      icon: '🐛',
+      icon: FaLightbulb,
       rounds: [
       ],
       coordinators: [
@@ -51,7 +53,7 @@ export const events = {
       time: '9:00 AM - 10:30 AM',
       venue: 'Seminar Hall, Rudra Block',
       teamSize: '3-4 members',
-      icon: '🧠',
+      icon: FaSearch,
       coordinators: [
         { name: 'Mohammed Riyaz A', phone: '+91 7010559916' },
         { name: 'Sahana K', phone: '+91 9025639476' }
@@ -70,7 +72,7 @@ export const events = {
       time: '11:00 AM - 12:00 PM',
       venue: 'Seminar Hall, Rudra Block',
       teamSize: '2-3 members',
-      icon: '📊',
+      icon: FaEye,
       rounds: [
         'Round 1: Observation Challenge - Participants observe a scene or image for 30 seconds and answer questions based on details and clues.',
         'Round 2: Interrogation Room - Teams analyze a crime story, interrogate characters, and use clues to identify the murderer through logical reasoning and teamwork.',
@@ -92,7 +94,7 @@ export const events = {
       venue: 'Seminar Hall, Rudra Block',
       venue: 'Seminar, Rudra Block',
       teamSize: '2 members',
-      icon: '🗣️',
+      icon: FaFilm,
       rounds: [
         'Round 1: BGM Finding - Participants listen to background music and identify the movie.',
         'Round 2: Dumb Charades (Movie Edition) - Teams act out movie names without speaking while teammates guess.',
@@ -120,9 +122,9 @@ export const contactInfo = {
     name: 'Government College of Technology',
     address: 'Thadagam Road, Coimbatore - 641013',
     website: 'https://gct.ac.in',
-    linkedin: 'https://linkedin.com/school/gct-coimbatore',
-    instagram: 'https://instagram.com/technovate.gct',
-    whatsapp: 'https://wa.me/919876543210'
+    linkedin: 'https://www.linkedin.com/school/gctcoimbatore/',
+    instagram: 'https://www.instagram.com/ita_gct?igsh=ZWF1d2M1aHc2a2Rp',
+    whatsapp: 'https://wa.me/9025490023'
   },
   secretaries: {
     title: 'Secretaries',
@@ -141,8 +143,8 @@ export const contactInfo = {
   eventCoordinators: {
     title: 'Event Coordinators',
     members: [
-      { role: 'Technical Lead', name: 'Madhan Kumar M', phone: '+91 9677068776' },
-      { role: 'Technical Co-Lead', name: 'Madhumitha M', phone: '+91 8124430294' }
+      { role: 'Lead', name: 'Madhan Kumar M', phone: '+91 9677068776' },
+      { role: 'Co-Lead', name: 'Madhumitha M', phone: '+91 8124430294' }
     ]
   }
  

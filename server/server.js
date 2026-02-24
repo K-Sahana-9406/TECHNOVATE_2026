@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-require('dotenv').config({ path: __dirname + '/.env' });
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+
+// Load environment variables
+dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -11,10 +13,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Google Sheets Web App URL
-const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || '';
-
-// Nodemailer transporter configuration
+// Initialize Nodemailer Transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -23,542 +22,180 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Verify email configuration on startup
-transporter.verify((error, success) => {
-  if (error) {
-    console.log('Email configuration error:', error);
-  } else {
-    console.log('Email server ready to send messages');
-  }
-});
+// Google Apps Script URL
+const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL;
 
-/**
- * POST /api/send-email
- * Send email to a single recipient
- */
-app.post('/api/send-email', async (req, res) => {
-  try {
-    const { 
-      to_email, 
-      to_name, 
-      subject, 
-      registration_id, 
-      event_name, 
-      pass_type, 
-      amount, 
-      college,
-      team_members,
-      html_content 
-    } = req.body;
-
-    const mailOptions = {
-      from: `"Technovate 2026 - GCT Coimbatore" <${process.env.EMAIL_USER}>`,
-      to: to_email,
-      subject: subject || `Technovate 2026 - Registration Confirmed (${registration_id})`,
-      html: html_content || `
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-          <!-- Header -->
-          <div style="background: linear-gradient(135deg, #0f172a, #1e3a5f); padding: 40px 30px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 1px;">TECHNOVATE 2026</h1>
-            <p style="color: #06b6d4; margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Intercollege IT Fest</p>
-            <div style="margin-top: 20px; padding: 10px 20px; background: rgba(6, 182, 212, 0.2); border-radius: 20px; display: inline-block;">
-              <span style="color: #06b6d4; font-size: 12px; font-weight: 600;">REGISTRATION CONFIRMED</span>
-            </div>
-          </div>
-          
-          <!-- Body -->
-          <div style="padding: 40px 30px; background: #ffffff;">
-            <p style="font-size: 16px; color: #334155; margin: 0 0 20px 0;">Dear <strong>${to_name}</strong>,</p>
-            <p style="font-size: 15px; color: #475569; line-height: 1.6; margin: 0 0 25px 0;">
-              We are pleased to confirm your successful registration for <strong>Technovate 2026</strong>, the premier Intercollege IT Festival hosted by the Information Technology Department at Government College of Technology, Coimbatore.
-            </p>
-            
-            <!-- Registration Details Box -->
-            <div style="background: #f8fafc; border-left: 4px solid #06b6d4; padding: 25px; margin: 25px 0; border-radius: 0 8px 8px 0;">
-              <h3 style="color: #0f172a; margin: 0 0 20px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Registration Details</h3>
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px; width: 40%;">Registration ID</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; font-family: monospace;">${registration_id}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Events Registered</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${event_name}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Pass Type</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${pass_type || 'N/A'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Amount Paid</td>
-                  <td style="padding: 8px 0; color: #059669; font-size: 14px; font-weight: 700;">₹${amount || '0'}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Institution</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${college || 'N/A'}</td>
-                </tr>
-              </table>
-            </div>
-            
-            <!-- Event Details Box -->
-            <div style="background: #f8fafc; border-left: 4px solid #8b5cf6; padding: 25px; margin: 25px 0; border-radius: 0 8px 8px 0;">
-              <h3 style="color: #0f172a; margin: 0 0 20px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Event Information</h3>
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px; width: 40%;">Date</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">March 15, 2026</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Venue</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">Government College of Technology, Coimbatore</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Address</td>
-                  <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">Thadagam Road, Coimbatore - 641013</td>
-                </tr>
-              </table>
-            </div>
-            
-            ${team_members ? `<div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 8px;"><p style="color: #92400e; font-size: 14px; margin: 0;"><strong>Team Information:</strong> ${team_members}</p></div>` : ''}
-            
-            <p style="font-size: 14px; color: #64748b; line-height: 1.6; margin: 25px 0;">
-              Please retain this email as official confirmation of your registration. Kindly present your Registration ID at the registration desk upon arrival at the venue.
-            </p>
-            
-            <p style="font-size: 14px; color: #64748b; line-height: 1.6; margin: 0;">
-              We look forward to your participation and wish you the very best in your chosen events.
-            </p>
-          </div>
-          
-          <!-- Footer -->
-          <div style="background: #0f172a; padding: 30px; text-align: center;">
-            <p style="color: #94a3b8; font-size: 12px; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px;">Contact Information</p>
-            <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">General Secretary: +91 98765 43210</p>
-            <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">Email: technovate@gct.ac.in</p>
-            <p style="color: #475569; font-size: 11px; margin: 20px 0 0 0;">
-              © 2026 Technovate - Government College of Technology, Coimbatore. All rights reserved.
-            </p>
-          </div>
-        </div>
-      `
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.messageId);
-    
-    res.json({ 
-      success: true, 
-      messageId: info.messageId,
-      recipient: to_email 
-    });
-  } catch (error) {
-    console.error('Email sending error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message 
-    });
-  }
-});
-
-/**
- * POST /api/send-bulk-emails
- * Send emails to all team members
- */
-app.post('/api/send-bulk-emails', async (req, res) => {
-  try {
-    const { 
-      recipients, // Array of { name, email }
-      registration_id, 
-      event_name, 
-      pass_type, 
-      amount, 
-      college,
-      team_members_list
-    } = req.body;
-
-    const results = [];
-    const teamMembersString = team_members_list ? `Team Members: ${team_members_list}` : '';
-
-    // Send email to each recipient
-    for (const recipient of recipients) {
-      try {
-        const mailOptions = {
-          from: `"Technovate 2026 - GCT Coimbatore" <${process.env.EMAIL_USER}>`,
-          to: recipient.email,
-          subject: `Technovate 2026 - Registration Confirmed (${registration_id})`,
-          html: `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-              <!-- Header -->
-              <div style="background: linear-gradient(135deg, #0f172a, #1e3a5f); padding: 40px 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 1px;">TECHNOVATE 2026</h1>
-                <p style="color: #06b6d4; margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Intercollege IT Fest</p>
-                <div style="margin-top: 20px; padding: 10px 20px; background: rgba(6, 182, 212, 0.2); border-radius: 20px; display: inline-block;">
-                  <span style="color: #06b6d4; font-size: 12px; font-weight: 600;">REGISTRATION CONFIRMED</span>
-                </div>
-              </div>
-              
-              <!-- Body -->
-              <div style="padding: 40px 30px; background: #ffffff;">
-                <p style="font-size: 16px; color: #334155; margin: 0 0 20px 0;">Dear <strong>${recipient.name}</strong>,</p>
-                <p style="font-size: 15px; color: #475569; line-height: 1.6; margin: 0 0 25px 0;">
-                  We are pleased to confirm your successful registration for <strong>Technovate 2026</strong>, the premier Intercollege IT Festival hosted by the Information Technology Department at Government College of Technology, Coimbatore.
-                </p>
-                
-                <!-- Registration Details Box -->
-                <div style="background: #f8fafc; border-left: 4px solid #06b6d4; padding: 25px; margin: 25px 0; border-radius: 0 8px 8px 0;">
-                  <h3 style="color: #0f172a; margin: 0 0 20px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Registration Details</h3>
-                  <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px; width: 40%;">Registration ID</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; font-family: monospace;">${registration_id}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Events Registered</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${event_name}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Pass Type</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${pass_type || 'N/A'}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Amount Paid</td>
-                      <td style="padding: 8px 0; color: #059669; font-size: 14px; font-weight: 700;">₹${amount || '0'}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Institution</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${college || 'N/A'}</td>
-                    </tr>
-                  </table>
-                </div>
-                
-                <!-- Event Details Box -->
-                <div style="background: #f8fafc; border-left: 4px solid #8b5cf6; padding: 25px; margin: 25px 0; border-radius: 0 8px 8px 0;">
-                  <h3 style="color: #0f172a; margin: 0 0 20px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Event Information</h3>
-                  <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px; width: 40%;">Date</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">March 15, 2026</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Venue</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">Government College of Technology, Coimbatore</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Address</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">Thadagam Road, Coimbatore - 641013</td>
-                    </tr>
-                  </table>
-                </div>
-                
-                ${teamMembersString ? `<div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 8px;"><p style="color: #92400e; font-size: 14px; margin: 0;"><strong>Team Information:</strong> ${teamMembersString}</p></div>` : ''}
-                
-                <p style="font-size: 14px; color: #64748b; line-height: 1.6; margin: 25px 0;">
-                  Please retain this email as official confirmation of your registration. Kindly present your Registration ID at the registration desk upon arrival at the venue.
-                </p>
-                
-                <p style="font-size: 14px; color: #64748b; line-height: 1.6; margin: 0;">
-                  We look forward to your participation and wish you the very best in your chosen events.
-                </p>
-              </div>
-              
-              <!-- Footer -->
-              <div style="background: #0f172a; padding: 30px; text-align: center;">
-                <p style="color: #94a3b8; font-size: 12px; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px;">Contact Information</p>
-                <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">General Secretary: +91 98765 43210</p>
-                <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">Email: technovate@gct.ac.in</p>
-                <p style="color: #475569; font-size: 11px; margin: 20px 0 0 0;">
-                  © 2026 Technovate - Government College of Technology, Coimbatore. All rights reserved.
-                </p>
-              </div>
-            </div>
-          `
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        results.push({ 
-          success: true, 
-          recipient: recipient.email,
-          messageId: info.messageId 
-        });
-      } catch (error) {
-        results.push({ 
-          success: false, 
-          recipient: recipient.email,
-          error: error.message 
-        });
-      }
-    }
-
-    const successCount = results.filter(r => r.success).length;
-    
-    res.json({
-      success: true,
-      total: recipients.length,
-      sent: successCount,
-      failed: recipients.length - successCount,
-      results
-    });
-  } catch (error) {
-    console.error('Bulk email error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message 
-    });
-  }
-});
-
-/**
- * POST /api/submit-to-sheets
- * Submit registration data to Google Sheets (each member as separate row)
- */
+// ============================================
+// ROUTE 1: Submit Registration to Google Sheets via Apps Script
+// ============================================
 app.post('/api/submit-to-sheets', async (req, res) => {
   try {
-    const { 
-      registrationId,
-      eventNames,
-      participants, // Array of all participants
-      passType,
-      amount
-    } = req.body;
+    const { registrationId, eventNames, participants, passType, amount, transactionId } = req.body;
 
-    console.log('=== SUBMIT TO SHEETS DEBUG ===');
-    console.log('Request body:', JSON.stringify(req.body, null, 2));
-
-    if (!GOOGLE_SCRIPT_URL) {
-      return res.status(500).json({
+    // Validate required fields
+    if (!registrationId || !participants || !Array.isArray(participants)) {
+      return res.status(400).json({
         success: false,
-        error: 'Google Script URL not configured'
+        message: 'Missing required fields: registrationId, participants',
       });
     }
 
-    const results = [];
-    const timestamp = new Date().toISOString();
+    console.log('Submitting to Google Sheets via Apps Script:', { registrationId, eventNames, passType });
 
-    // Submit each participant as separate row
+    const timestamp = new Date().toISOString();
+    const results = [];
+
+    // Submit each participant as a separate row
     for (let i = 0; i < participants.length; i++) {
       const participant = participants[i];
       
-      const rowData = {
+      const data = {
         timestamp: timestamp,
         registrationId: registrationId,
-        eventNames: eventNames,
-        memberName: participant.name,
-        memberEmail: participant.email,
-        memberPhone: participant.phone,
-        college: participant.college,
-        year: participant.year,
-        passType: passType,
-        amount: amount,
-        isPrimary: i === 0 ? 'Yes' : 'No'
+        eventNames: eventNames || 'N/A',
+        memberName: participant.name || '',
+        memberEmail: participant.email || '',
+        memberPhone: participant.phone || '',
+        college: participant.college || '',
+        year: participant.year || '',
+        passType: passType || 'N/A',
+        amount: i === 0 ? (amount || '0') : '',
+        isPrimary: i === 0 ? 'Yes' : 'No',
+        transactionId: i === 0 ? (transactionId || '') : ''
       };
-      
-      console.log(`Row ${i} data being sent:`, JSON.stringify(rowData, null, 2));
 
-      try {
-        console.log(`Sending to Google Script for participant ${i}...`);
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(rowData)
-        });
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-        console.log(`Response status for participant ${i}:`, response.status);
-        const responseText = await response.text();
-        console.log(`Response text for participant ${i}:`, responseText);
-        
-        let result;
-        try {
-          result = JSON.parse(responseText);
-        } catch (e) {
-          result = { rawResponse: responseText };
-        }
-        
-        results.push({
-          success: response.ok,
-          participant: participant.name,
-          result
-        });
-      } catch (error) {
-        console.error(`Error for participant ${i}:`, error.message);
-        results.push({
-          success: false,
-          participant: participant.name,
-          error: error.message
-        });
-      }
+      const result = await response.json();
+      results.push(result);
     }
 
-    const successCount = results.filter(r => r.success).length;
+    console.log('Data submitted to Google Sheet:', results);
 
-    res.json({
+    res.status(200).json({
       success: true,
-      total: participants.length,
-      appended: successCount,
-      failed: participants.length - successCount,
-      results
+      message: 'Registration data saved successfully',
+      registrationId,
     });
   } catch (error) {
-    console.error('Sheets submission error:', error);
+    console.error('Error submitting to Google Sheets:', error);
     res.status(500).json({
       success: false,
+      message: 'Failed to save registration data',
+      error: error.message,
+    });
+  }
+});
+
+// ============================================
+// ROUTE 2: Send Bulk Emails
+// ============================================
+app.post('/api/send-bulk-emails', async (req, res) => {
+  try {
+    const { recipients, registration_id, event_name, pass_type, amount, college, team_members_list } = req.body;
+
+    if (!recipients || !Array.isArray(recipients) || recipients.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Recipients array is required'
+      });
+    }
+
+    const emailResults = [];
+
+    for (const recipient of recipients) {
+      const plainTextContent = `Subject: Registration Confirmed – Technovate 2026 | Government College of Technology
+
+Dear ${recipient.name},
+
+Greetings from the Department of Information Technology!
+
+We are delighted to inform you that your registration for Technovate 2026 has been successfully confirmed.
+
+Here are your event details:
+
+Event Name: ${event_name}
+Pass: ${pass_type}
+Date: March 13, 2026
+Venue: Government College of Technology, Coimbatore
+Reporting Time: 9:00 AM
+Registration ID: ${registration_id}
+
+Event Pass Details:
+• Your pass grants access to all events under Technovate 2026.
+• Please carry a valid College ID card.
+• Show this email at the registration desk for verification.
+
+Important Instructions:
+• Participants must report on time.
+• Bring necessary materials (if required for your event).
+• Lunch (Non-Veg) and refreshments will be provided.
+
+For updates and announcements, join our official channels:
+WhatsApp: https://chat.whatsapp.com/your-group-link
+Instagram: https://instagram.com/ita_gct
+
+If you have any queries, feel free to contact us.
+
+We look forward to your enthusiastic participation and wish you the very best!
+
+Let's innovate. Let's compete. Let's win.
+
+Warm Regards,
+Team Technovate 2026
+Department of Information Technology
+Government College of Technology
+Coimbatore`;
+
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: recipient.email,
+        subject: 'Registration Confirmed – Technovate 2026 | Government College of Technology',
+        text: plainTextContent
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      emailResults.push({
+        recipient: recipient.email,
+        success: true,
+        messageId: info.messageId
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Emails sent successfully to ${recipients.length} recipient(s)`,
+      results: emailResults
+    });
+
+  } catch (error) {
+    console.error('Error sending emails:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to send emails',
       error: error.message
     });
   }
 });
 
-/**
- * POST /api/send-verification-pending
- * Send verification pending email to all team members
- */
-app.post('/api/send-verification-pending', async (req, res) => {
-  try {
-    const { 
-      recipients, // Array of { name, email }
-      registration_id, 
-      event_name, 
-      pass_type, 
-      amount, 
-      college,
-      team_members_list,
-      transaction_id
-    } = req.body;
-
-    const results = [];
-    const teamMembersString = team_members_list ? `Team Members: ${team_members_list}` : '';
-
-    // Send email to each recipient
-    for (const recipient of recipients) {
-      try {
-        const mailOptions = {
-          from: `"Technovate 2026 - GCT Coimbatore" <${process.env.EMAIL_USER}>`,
-          to: recipient.email,
-          subject: `Technovate 2026 - Payment Verification Pending (${registration_id})`,
-          html: `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
-              <!-- Header -->
-              <div style="background: linear-gradient(135deg, #0f172a, #1e3a5f); padding: 40px 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 1px;">TECHNOVATE 2026</h1>
-                <p style="color: #f59e0b; margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Payment Verification Pending</p>
-              </div>
-              
-              <!-- Body -->
-              <div style="padding: 40px 30px; background: #ffffff;">
-                <p style="font-size: 16px; color: #334155; margin: 0 0 20px 0;">Dear <strong>${recipient.name}</strong>,</p>
-                <p style="font-size: 15px; color: #475569; line-height: 1.6; margin: 0 0 25px 0;">
-                  Thank you for registering for <strong>Technovate 2026</strong>. Your payment details have been received and are currently under verification.
-                </p>
-                
-                <!-- Registration Details Box -->
-                <div style="background: #f8fafc; border-left: 4px solid #f59e0b; padding: 25px; margin: 25px 0; border-radius: 0 8px 8px 0;">
-                  <h3 style="color: #0f172a; margin: 0 0 20px 0; font-size: 16px; text-transform: uppercase; letter-spacing: 1px;">Registration Details</h3>
-                  <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px; width: 40%;">Registration ID</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; font-family: monospace;">${registration_id}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Transaction ID</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600; font-family: monospace;">${transaction_id}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Events Registered</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${event_name}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Pass Type</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${pass_type || 'N/A'}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Amount</td>
-                      <td style="padding: 8px 0; color: #059669; font-size: 14px; font-weight: 700;">₹${amount || '0'}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Institution</td>
-                      <td style="padding: 8px 0; color: #0f172a; font-size: 14px; font-weight: 600;">${college || 'N/A'}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Status</td>
-                      <td style="padding: 8px 0; color: #f59e0b; font-size: 14px; font-weight: 700;">PENDING VERIFICATION</td>
-                    </tr>
-                  </table>
-                </div>
-                
-                <div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 8px;">
-                  <p style="color: #92400e; font-size: 14px; margin: 0; line-height: 1.6;">
-                    <strong>What happens next?</strong><br>
-                    Our team will verify your payment within 24 hours by matching the Transaction ID with our bank records. You will receive a confirmation email once your registration is approved.
-                  </p>
-                </div>
-                
-                ${teamMembersString ? `<div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 15px; margin: 20px 0; border-radius: 8px;"><p style="color: #475569; font-size: 14px; margin: 0;"><strong>Team Information:</strong> ${teamMembersString}</p></div>` : ''}
-                
-                <p style="font-size: 14px; color: #64748b; line-height: 1.6; margin: 25px 0;">
-                  Please retain this email and save your Registration ID and Transaction ID for future reference.
-                </p>
-              </div>
-              
-              <!-- Footer -->
-              <div style="background: #0f172a; padding: 30px; text-align: center;">
-                <p style="color: #94a3b8; font-size: 12px; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px;">Contact Information</p>
-                <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">General Secretary: +91 98765 43210</p>
-                <p style="color: #cbd5e1; font-size: 13px; margin: 5px 0;">Email: technovate@gct.ac.in</p>
-                <p style="color: #475569; font-size: 11px; margin: 20px 0 0 0;">
-                  © 2026 Technovate - Government College of Technology, Coimbatore. All rights reserved.
-                </p>
-              </div>
-            </div>
-          `
-        };
-
-        const info = await transporter.sendMail(mailOptions);
-        results.push({ 
-          success: true, 
-          recipient: recipient.email,
-          messageId: info.messageId 
-        });
-      } catch (error) {
-        results.push({ 
-          success: false, 
-          recipient: recipient.email,
-          error: error.message 
-        });
-      }
-    }
-
-    const successCount = results.filter(r => r.success).length;
-    
-    res.json({
-      success: true,
-      total: recipients.length,
-      sent: successCount,
-      failed: recipients.length - successCount,
-      results
-    });
-  } catch (error) {
-    console.error('Verification pending email error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message 
-    });
-  }
+// ============================================
+// ROUTE 3: Health Check
+// ============================================
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-/**
- * Health check endpoint
- */
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    emailConfigured: !!process.env.EMAIL_USER,
-    sheetsConfigured: !!GOOGLE_SCRIPT_URL
-  });
-});
-
+// Start server
 app.listen(PORT, () => {
+  console.log(`=================================`);
   console.log(`Server running on port ${PORT}`);
-  console.log(`Email configured: ${!!process.env.EMAIL_USER}`);
-  console.log(`Google Sheets configured: ${!!GOOGLE_SCRIPT_URL}`);
+  console.log(`=================================`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Google Apps Script: ${process.env.GOOGLE_SCRIPT_URL ? '✓ Set' : '✗ Missing'}`);
+  console.log(`Email Service: ${process.env.EMAIL_USER ? '✓ Set' : '✗ Missing'}`);
+  console.log(`=================================`);
 });

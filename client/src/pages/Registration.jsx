@@ -597,7 +597,9 @@ const Registration = () => {
                       onChange={() => handleEventToggle(event.id)}
                       className="w-5 h-5 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500"
                     />
-                    <span className="ml-3 text-2xl">{event.icon}</span>
+                    <div className="ml-3 w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <event.icon className="w-5 h-5 text-white" />
+                    </div>
                     <div className="ml-3">
                       <p className="font-medium text-white">{event.name}</p>
                       <p className="text-sm text-slate-400">{event.shortDescription}</p>

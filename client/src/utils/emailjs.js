@@ -82,7 +82,7 @@ export const sendBulkEmails = async (recipients, eventData) => {
 };
 
 /**
- * Generate professional email template parameters
+ * Generate plain text email template
  * @param {Object} data - Registration data
  */
 export const generateEmailTemplate = (data) => {
@@ -94,6 +94,77 @@ export const generateEmailTemplate = (data) => {
     ? `Team Members: ${data.teamMembers}` 
     : '';
 
+  const plainTextContent = `Subject: Registration Confirmed – Technovate 2026 | Government College of Technology
+
+Dear ${data.participantName},
+
+
+Greetings from the Department of Information Technology!
+
+
+We are delighted to inform you that your registration for Technovate 2026 has been successfully confirmed.
+
+
+Here are your event details:
+
+
+Event Name: ${eventsList}
+
+Pass: ${data.passType || 'N/A'}
+
+Date: March 13, 2026
+
+Venue: Government College of Technology, Coimbatore
+
+Reporting Time: 9:00 AM
+
+Registration ID: ${data.registrationId}
+
+
+Event Pass Details:
+
+• Your pass grants access to all events under Technovate 2026.
+
+• Please carry a valid College ID card.
+
+• Show this email at the registration desk for verification.
+
+
+Important Instructions:
+
+• Participants must report on time.
+
+• Bring necessary materials (if required for your event).
+
+• Lunch (Non-Veg) and refreshments will be provided.
+
+
+For updates and announcements, join our official channels:
+
+WhatsApp: https://chat.whatsapp.com/your-group-link
+
+Instagram: https://instagram.com/ita_gct
+
+
+If you have any queries, feel free to contact us.
+
+
+We look forward to your enthusiastic participation and wish you the very best!
+
+
+Let's innovate. Let's compete. Let's win.
+
+
+Warm Regards,
+
+Team Technovate 2026
+
+Department of Information Technology
+
+Government College of Technology
+
+Coimbatore`;
+
   return {
     to_name: data.participantName,
     to_email: data.email,
@@ -102,38 +173,13 @@ export const generateEmailTemplate = (data) => {
     amount: data.amount || '0',
     registration_id: data.registrationId,
     college: data.college || 'N/A',
-    date: 'March 15, 2026',
+    date: 'March 13, 2026',
     venue: 'Government College of Technology, Coimbatore',
     team_members: teamMembersList,
     reply_to: 'technovate@gct.ac.in',
-    subject: `Technovate 2026 - Registration Confirmed (${data.registrationId})`,
-    
-    // HTML content for rich emails (if supported)
-    html_content: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: linear-gradient(135deg, #0ea5e9, #06b6d4); padding: 30px; text-align: center;">
-          <h1 style="color: white; margin: 0;">Technovate 2026</h1>
-          <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">Registration Confirmed!</p>
-        </div>
-        <div style="padding: 30px; background: #f8fafc;">
-          <p style="font-size: 16px; color: #334155;">Dear ${data.participantName},</p>
-          <p style="font-size: 16px; color: #334155;">Your registration for Technovate 2026 has been confirmed!</p>
-          
-          <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p><strong>Registration ID:</strong> ${data.registrationId}</p>
-            <p><strong>Events:</strong> ${eventsList}</p>
-            <p><strong>Pass Type:</strong> ${data.passType || 'N/A'}</p>
-            <p><strong>Amount Paid:</strong> ₹${data.amount || '0'}</p>
-            <p><strong>Date:</strong> March 15, 2026</p>
-            <p><strong>Venue:</strong> Government College of Technology, Coimbatore</p>
-          </div>
-          
-          ${teamMembersList ? `<p style="color: #64748b;">${teamMembersList}</p>` : ''}
-          
-          <p style="color: #64748b; font-size: 14px;">Please save this email for your records. We look forward to seeing you at the event!</p>
-        </div>
-      </div>
-    `
+    subject: `Registration Confirmed – Technovate 2026 | Government College of Technology`,
+    message: plainTextContent,
+    text_content: plainTextContent
   };
 };
 

@@ -1,0 +1,23 @@
+2026-02-26 19:06:21 [[32minfo[39m]: Server setup starting...
+2026-02-26 19:06:21 [[32minfo[39m]: =================================
+2026-02-26 19:06:21 [[32minfo[39m]: Server running on port 5000
+2026-02-26 19:06:21 [[32minfo[39m]: =================================
+2026-02-26 19:09:22 [[32minfo[39m]: Server setup starting...
+2026-02-26 19:09:23 [[32minfo[39m]: =================================
+2026-02-26 19:09:23 [[32minfo[39m]: Server running on port 5000
+2026-02-26 19:09:23 [[32minfo[39m]: =================================
+2026-02-26 19:10:58 [[31merror[39m]: Email sending error: Message failed: 550 The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements
+2026-02-26 19:18:58 [[31merror[39m]: Email sending error: Message failed: 550 The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements
+2026-02-26 19:22:05 [[32minfo[39m]: Server setup starting...
+2026-02-26 19:22:06 [[32minfo[39m]: =================================
+2026-02-26 19:22:06 [[32minfo[39m]: Server running on port 5000
+2026-02-26 19:22:06 [[32minfo[39m]: =================================
+2026-02-26 19:24:34 [[32minfo[39m]: Server setup starting...
+2026-02-26 19:24:35 [[32minfo[39m]: =================================
+2026-02-26 19:24:35 [[32minfo[39m]: Server running on port 5000
+2026-02-26 19:24:35 [[32minfo[39m]: =================================
+2026-02-26 19:33:31 [[31merror[39m]: Email sending error: Message failed: 550 The from address does not match a verified Sender Identity. Mail cannot be sent until this error is resolved. Visit https://sendgrid.com/docs/for-developers/sending-email/sender-identity/ to see the Sender Identity requirements
+2026-02-26 19:37:12 [[32minfo[39m]: Server setup starting...
+2026-02-26 19:37:13 [[32minfo[39m]: =================================
+2026-02-26 19:37:13 [[32minfo[39m]: Server running on port 5000
+2026-02-26 19:37:13 [[32minfo[39m]: =================================

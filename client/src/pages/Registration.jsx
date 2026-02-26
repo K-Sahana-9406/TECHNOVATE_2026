@@ -35,6 +35,7 @@ const Registration = () => {
     email: '',
     phone: '',
     year: '',
+    lunchPreference: 'non-veg',
     selectedEvents: [],
     passType: '',
     additionalMembers: []
@@ -73,7 +74,8 @@ const handlePassChange = (passId) => {
           college: '',
           email: '',
           phone: '',
-          year: ''
+          year: '',
+          lunchPreference: 'non-veg'
         }))
       : []
   }));
@@ -203,7 +205,8 @@ let allParticipants = [
     college: formData.college?.trim(),
     email: formData.email?.trim(),
     phone: formData.phone?.trim(),
-    year: formData.year?.trim()
+    year: formData.year?.trim(),
+    lunchPreference: formData.lunchPreference || 'non-veg'
   }
 ];
 
@@ -224,7 +227,8 @@ let allParticipants = [
     email: member.email.trim(),
     phone: member.phone.trim(),
     college: member.college.trim(),
-    year: member.year.trim()
+    year: member.year.trim(),
+    lunchPreference: member.lunchPreference || 'non-veg'
   });
 }
         });
@@ -365,7 +369,7 @@ if (cleanedParticipants.length === 0) {
             {/* Payment Screenshot Upload */}
             <div className="glass-card rounded-xl p-6 mb-6">
               <label className="block text-sm font-medium text-slate-300 mb-3">
-                Payment Screenshot with Transaction ID (available in chat of payment)*
+                Payment Screenshot with Transaction ID [available in chat of payment] <span className="text-red-500">*</span>
               </label>
               
               {/* File Input */}
@@ -629,6 +633,24 @@ if (cleanedParticipants.length === 0) {
                     <option value="4th">4th Year</option>
                   </select>
                 </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-slate-300 mb-2">
+                    <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Lunch Preference *
+                  </label>
+                  <select
+                    name="lunchPreference"
+                    value={formData.lunchPreference}
+                    onChange={handleInputChange}
+                    className="input-field"
+                  >
+                    <option value="non-veg">Non-Veg</option>
+                    <option value="veg">Veg</option>
+                  </select>
+                </div>
               </div>
             </div>
           )}
@@ -744,13 +766,21 @@ if (cleanedParticipants.length === 0) {
                         <select
                           value={member.year}
                           onChange={(e) => handleMemberChange(index, 'year', e.target.value)}
-                          className="input-field md:col-span-2"
+                          className="input-field"
                         >
                           <option value="">Select Year</option>
                           <option value="1st">1st Year</option>
                           <option value="2nd">2nd Year</option>
                           <option value="3rd">3rd Year</option>
                           <option value="4th">4th Year</option>
+                        </select>
+                        <select
+                          value={member.lunchPreference}
+                          onChange={(e) => handleMemberChange(index, 'lunchPreference', e.target.value)}
+                          className="input-field"
+                        >
+                          <option value="non-veg">Non-Veg</option>
+                          <option value="veg">Veg</option>
                         </select>
                       </div>
                     </div>

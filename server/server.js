@@ -33,14 +33,11 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // Initialize Gmail Transporter
-const nodemailer = require('nodemailer');
-
 const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
+  service: 'gmail',
   auth: {
-    user: "apikey", // literally the word "apikey"
-    pass: process.env.SENDGRID_API_KEY
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
@@ -103,7 +100,7 @@ Government College of Technology
 Coimbatore`;
 
       const mailOptions = {
-        from: `"Technovate 2026" <${process.env.EMAIL_USER}>`,
+        from: `"Technovate 2026" <${process.env.FROM_EMAIL || process.env.EMAIL_USER}>`,
         to: recipient.email,
         subject: subject,
         text: body

@@ -23,10 +23,10 @@ import {
 import Countdown from '../components/Countdown';
 import { eventDate, contactInfo, events } from '../data/events';
 import gct_logo from '../assets/gct_logo.png';
-import img1 from '../assets/IMG_4045.JPG.jpeg';
-import img2 from '../assets/IMG_4085.JPG.jpeg';
-import img3 from '../assets/IMG_4171.JPG.jpeg';
-import img4 from '../assets/IMG_4202.JPG.jpeg';
+import img1 from '../assets/IMG_4045.JPG.JPG';
+import img2 from '../assets/IMG_4085.JPG.JPG';
+import img3 from '../assets/IMG_4171.JPG.JPG';
+import img4 from '../assets/IMG_4202.JPG.JPG';
 import img5 from '../assets/background.JPG'
 const Home = () => {
   useEffect(() => {
@@ -42,7 +42,7 @@ const Home = () => {
 
   const stats = [
     { icon: FaTrophy, value: '₹10,000+', label: 'Prize Pool' },
-    { icon: FaLightbulb, value: '3+', label: 'Events' },
+    { icon: FaLightbulb, value: '5+', label: 'Events' },
     { icon: FaUsers, value: '500+', label: 'Participants' },
     { icon: FaGraduationCap, value: '20+', label: 'Colleges' },
   ];
@@ -441,8 +441,8 @@ const Home = () => {
             {[
               { name: 'Individual Pass', price: '₹200', members: '1 Member', icon: FaUser, desc: 'Full access to all events' },
               { name: 'Duo Pass', price: '₹350', members: '2 Members', icon: FaUsers, desc: 'Perfect for pairs' },
-              { name: 'Quad Pass', price: '₹650', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
-              { name: 'Octa Pass', price: '₹1400', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
+              { name: 'Quad Pass', price: '₹700', members: '4 Members', icon: FaUsers, desc: 'Great for small teams' },
+              { name: 'Octa Pass', price: '₹1400', members: '8 Members', icon: FaUsers, desc: 'Best value for teams' }
             ].map((pass, index) => (
               <motion.div
                 key={pass.name}
@@ -467,7 +467,7 @@ const Home = () => {
               {[
         { name: 'Individual Pass', price: '₹200', members: '1 Member', icon: FaUser, desc: 'Full access to all events' },
               { name: 'Duo Pass', price: '₹350', members: '2 Members', icon: FaUsers, desc: 'Perfect for pairs' },
-              { name: 'Quad Pass', price: '₹650', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
+              { name: 'Quad Pass', price: '₹700', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
               { name: 'Octa Pass', price: '₹1400', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
               ].map((pass, index) => (
                 <motion.div

@@ -365,7 +365,7 @@ if (cleanedParticipants.length === 0) {
             {/* Payment Screenshot Upload */}
             <div className="glass-card rounded-xl p-6 mb-6">
               <label className="block text-sm font-medium text-slate-300 mb-3">
-                Payment Screenshot *
+                Payment Screenshot with Transaction ID (available in chat of payment)*
               </label>
               
               {/* File Input */}
@@ -408,6 +408,12 @@ if (cleanedParticipants.length === 0) {
               <p className="text-slate-400 text-xs mt-3">
                 Upload a clear screenshot of your payment confirmation from your UPI app
               </p>
+              
+              <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                <p className="text-blue-400 text-xs">
+                  <strong>Note:</strong> Please ensure the screenshot clearly displays the transaction ID or UTR number from your payment confirmation. This information is typically available in your UPI app payment history or chat section after completing the transaction.
+                </p>
+              </div>
             </div>
 
             <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl mb-6">

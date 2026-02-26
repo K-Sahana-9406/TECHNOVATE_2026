@@ -111,10 +111,10 @@ export const events = {
 };
 
 export const passTypes = [
-  { id: 'individual', name: 'Individual Pass', price: 200, members: 1 },
-  { id: 'duo', name: '2 Members Pass', price: 350, members: 2 },
-  { id: 'trio', name: '3 Members Pass', price: 500, members: 3 },
-  { id: 'quad', name: '4 Members Pass', price: 600, members: 4 }
+  { id: 'individual', name: 'Individual', price: 200, members: 1 },
+  { id: 'duo', name: 'Duo', price: 350, members: 2 },
+  { id: 'quad', name: 'Quad', price: 700, members: 4 },
+  { id: 'octa', name: 'Octa', price: 1400, members: 8 }
 ];
 
 export const contactInfo = {

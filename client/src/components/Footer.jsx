@@ -18,7 +18,7 @@ const Footer = () => {
             <span className="hidden md:inline">Government College of Technology, Coimbatore</span>
             <span className="md:hidden">GCT, Coimbatore</span>
           </a>
-          <p className="text-slate-500 text-xs">Developed by Sahana Kathiresan</p>
+          <p className="text-slate-500 text-xs">Developed by Sahana</p>
         </div>
       </div>
     </footer>

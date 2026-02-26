@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const winston = require('winston');
 
-
 // ============================================
 // SERVER - Handles email sending via Gmail
 // Registration data goes to Google Apps Script
@@ -13,11 +12,14 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Winston Logger setup
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.colorize(),
-    winston.format.simple()
+    winston.format.printf(({ timestamp, level, message }) => `${timestamp} [${level}]: ${message}`)
   ),
   transports: [
     new winston.transports.Console(),
@@ -25,8 +27,8 @@ const logger = winston.createLogger({
   ]
 });
 
-logger.info('Server started on port 10000');
-logger.error('Something went wrong!');
+logger.info('Server setup starting...');
+
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
@@ -47,6 +49,7 @@ app.post('/api/send-emails', async (req, res) => {
     const { recipients, registrationId, eventNames, passType, amount, college } = req.body;
 
     if (!recipients || !Array.isArray(recipients) || recipients.length === 0) {
+      logger.error('No recipients provided for email sending');
       return res.status(400).json({ success: false, message: 'No recipients provided' });
     }
 
@@ -105,12 +108,14 @@ Coimbatore`;
 
       const info = await transporter.sendMail(mailOptions);
       results.push({ email: recipient.email, success: true, messageId: info.messageId });
+      logger.info(`Email sent to ${recipient.email} (Message ID: ${info.messageId})`);
     }
 
     res.status(200).json({ success: true, results });
+    logger.info('All emails processed successfully');
 
   } catch (error) {
-    console.error('Email sending error:', error);
+    logger.error(`Email sending error: ${error.message}`);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -123,10 +128,11 @@ app.get('/health', (req, res) => {
     email: process.env.EMAIL_USER ? '✓ Configured' : '✗ Missing',
     timestamp: new Date().toISOString()
   });
+  logger.info('Health check endpoint accessed');
 });
 
 app.listen(PORT, () => {
-  console.log(`=================================`);
-  console.log(`Server running on port ${PORT}`);
-
+  logger.info('=================================');
+  logger.info(`Server running on port ${PORT}`);
+  logger.info('=================================');
 });

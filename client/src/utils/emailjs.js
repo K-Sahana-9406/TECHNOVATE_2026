@@ -6,7 +6,7 @@ const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
 
 // Backend API URL for Nodemailer (optional - for more reliable email delivery)
-const BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL || '';
+const BACKEND_API_URL = 'https://technovate26-backend.onrender.com/api/send-emails';
 
 export const initEmailJS = () => {
   if (PUBLIC_KEY) {
@@ -24,7 +24,7 @@ export const sendConfirmationEmail = async (templateParams) => {
     // Try backend API first (Nodemailer) if configured
     if (BACKEND_API_URL) {
       try {
-        const response = await fetch(`${BACKEND_API_URL}/api/send-email`, {
+        const response = await fetch(BACKEND_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(templateParams)

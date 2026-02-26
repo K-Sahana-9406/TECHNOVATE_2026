@@ -756,7 +756,7 @@ const Home = () => {
               </div>
             </a>
             <a
-              href={`mailto:technovate@gct.ac.in`}
+              href={`mailto:technovate26@gmail.com`}
               className="glass-card glass-card-hover rounded-xl px-6 py-4 flex items-center gap-3"
             >
               <FaEnvelope className="w-6 h-6 text-cyan-400" />
@@ -794,7 +794,7 @@ const Home = () => {
               <FaLinkedin className="w-7 h-7 text-blue-400" />
             </a>
             <a
-              href={`mailto:technovate@gct.ac.in`}
+              href={`mailto:technovate26@gmail.com`}
               className="w-14 h-14 glass-card rounded-xl flex items-center justify-center"
             >
               <FaEnvelope className="w-7 h-7 text-cyan-400" />

@@ -139,15 +139,12 @@ Important Instructions:
 • Lunch (Non-Veg) and refreshments will be provided.
 
 
-For updates and announcements, join our official channels:
-
-WhatsApp: https://chat.whatsapp.com/your-group-link
-
-Instagram: https://instagram.com/ita_gct
-
+For updates and announcements, join our official community:
+WhatsApp: https://chat.whatsapp.com/LmL2KjAfJIAIgoEaK2Fjnp
 
 If you have any queries, feel free to contact us.
-
+Mobile: +91 9025490023
+Email: technovate26@gmail.com
 
 We look forward to your enthusiastic participation and wish you the very best!
 

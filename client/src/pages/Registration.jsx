@@ -14,7 +14,8 @@ import {
 import toast from 'react-hot-toast';
 import { events, passTypes } from '../data/events';
 
-// Backend API URL
+// API URLs
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIRFnPzYhaJfCVIMv2Ykgsje4dXcY0s2uoHign5wDWGR-VEz8mUIfL2AWXDRbQ_0ePww/exec';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Registration = () => {
@@ -25,8 +26,8 @@ const Registration = () => {
   const [showPaymentPending, setShowPaymentPending] = useState(false);
   const [registrationId, setRegistrationId] = useState('');
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-  const [transactionId, setTransactionId] = useState('');
-  const [showVerificationPending, setShowVerificationPending] = useState(false);
+  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
+  const [screenshotPreview, setScreenshotPreview] = useState('');
   
   const [formData, setFormData] = useState({
     participantName: '',
@@ -60,16 +61,23 @@ const Registration = () => {
     }));
   };
 
-  const handlePassChange = (passId) => {
-    const pass = passTypes.find(p => p.id === passId);
-    setFormData(prev => ({
-      ...prev,
-      passType: passId,
-      additionalMembers: pass.members > 1 
-        ? Array(pass.members - 1).fill({ name: '', college: '', email: '', phone: '', year: '' })
-        : []
-    }));
-  };
+const handlePassChange = (passId) => {
+  const pass = passTypes.find(p => p.id === passId);
+
+  setFormData(prev => ({
+    ...prev,
+    passType: passId,
+    additionalMembers: pass.members > 1
+      ? Array.from({ length: pass.members - 1 }, () => ({
+          name: '',
+          college: '',
+          email: '',
+          phone: '',
+          year: ''
+        }))
+      : []
+  }));
+};
 
   const handleMemberChange = (index, field, value) => {
     setFormData(prev => {
@@ -138,99 +146,172 @@ const Registration = () => {
     }
   };
 
-  const handlePaymentConfirmation = async () => {
-    // Validate transaction ID - must be exactly 12 digits
-    const trimmedTransactionId = transactionId.trim();
-    if (!trimmedTransactionId) {
-      toast.error('Please enter UPI Transaction ID');
+  // Handle file selection for payment screenshot
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload an image file (PNG, JPG, JPEG)');
       return;
     }
-    if (!/^\d{12}$/.test(trimmedTransactionId)) {
-      toast.error('Transaction ID must be exactly 12 digits');
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('File size must be less than 5MB');
+      return;
+    }
+
+    setPaymentScreenshot(file);
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setScreenshotPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handlePaymentConfirmation = async () => {
+    // Validate screenshot upload
+    if (!paymentScreenshot) {
+      toast.error('Please upload payment screenshot');
       return;
     }
 
     setLoading(true);
     
     try {
-      const allParticipants = [
-        {
-          name: formData.participantName,
-          college: formData.college,
-          email: formData.email,
-          phone: formData.phone,
-          year: formData.year
-        },
-        ...formData.additionalMembers
-      ];
+      // Convert image to base64
+      const base64Image = await fileToBase64(paymentScreenshot);
 
+    
+let allParticipants = [
+  {
+    name: formData.participantName?.trim(),
+    college: formData.college?.trim(),
+    email: formData.email?.trim(),
+    phone: formData.phone?.trim(),
+    year: formData.year?.trim()
+  }
+];
+
+      
+      // Add additional members only if they have data
+      if (formData.additionalMembers && formData.additionalMembers.length > 0) {
+        formData.additionalMembers.forEach(member => {
+     if (
+  member &&
+  member.name?.trim() &&
+  member.email?.trim() &&
+  member.phone?.trim() &&
+  member.college?.trim() &&
+  member.year?.trim()
+) {
+  allParticipants.push({
+    name: member.name.trim(),
+    email: member.email.trim(),
+    phone: member.phone.trim(),
+    college: member.college.trim(),
+    year: member.year.trim()
+  });
+}
+        });
+      }
+// FINAL CLEANING (IMPORTANT)
+const cleanedParticipants = allParticipants.filter(
+  p =>
+    p &&
+    p.name &&
+    p.email &&
+    p.college &&
+    p.phone &&
+    p.year
+);
+
+if (cleanedParticipants.length === 0) {
+  toast.error("No valid participants found.");
+  setLoading(false);
+  return;
+}
       const allEventNames = formData.selectedEvents.map(id => {
         const allEvents = [...events.technical, ...events.nonTechnical];
         return allEvents.find(e => e.id === id)?.name;
       }).filter(Boolean);
 
-      // Step 1: Submit to Google Sheets via backend (AFTER payment)
-      console.log('Submitting to sheets...', { registrationId });
-      const sheetsResponse = await fetch(`${API_URL}/api/submit-to-sheets`, {
+      // Prepare data for Google Apps Script
+      const payload = {
+        timestamp: new Date().toISOString(),
+        registrationId: registrationId,
+        eventNames: allEventNames.join(', '),
+        participants: cleanedParticipants,
+        passType: selectedPass?.name,
+        amount: selectedPass?.price,
+        paymentScreenshot: base64Image,
+        filename: `${registrationId}_${paymentScreenshot.name}`
+      };
+
+      console.log('Submitting to Google Apps Script...', { registrationId });
+
+      // Send to Google Apps Script
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          registrationId: registrationId,
-          eventNames: allEventNames.join(', '),
-          participants: allParticipants,
-          passType: selectedPass?.name,
-          amount: selectedPass?.price
-        })
+        body: JSON.stringify(payload),
+        mode: 'no-cors' // Required for Google Apps Script
       });
 
-      if (!sheetsResponse.ok) {
-        const errorText = await sheetsResponse.text();
-        throw new Error(`Sheets API error: ${sheetsResponse.status} - ${errorText}`);
+      // Send confirmation emails via backend (Gmail)
+      console.log('Sending confirmation emails via Gmail...');
+      try {
+        const emailResponse = await fetch(`${API_URL}/api/send-emails`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipients: cleanedParticipants.map(p => ({ name: p.name, email: p.email })),
+            registrationId: registrationId,
+            eventNames: allEventNames.join(', '),
+            passType: selectedPass?.name,
+            amount: selectedPass?.price,
+            college: formData.college
+          })
+        });
+        
+        const emailResult = await emailResponse.json();
+        console.log('Email result:', emailResult);
+        
+        if (emailResult.success) {
+          toast.success(`Registration submitted! Confirmation emails sent to ${emailResult.results.length} participant(s).`);
+        } else {
+          toast.success('Registration submitted! Email notification may be delayed.');
+        }
+      } catch (emailErr) {
+        console.error('Email sending failed:', emailErr);
+        toast.success('Registration submitted! We will send confirmation email shortly.');
       }
-
-      const sheetsResult = await sheetsResponse.json();
-      console.log('Sheets result:', sheetsResult);
-
-      if (!sheetsResult.success) {
-        throw new Error(sheetsResult.error || 'Failed to save to spreadsheet');
-      }
-
-      // Step 2: Send confirmation email (registration complete)
-      console.log('Sending confirmation email...');
-      const emailResponse = await fetch(`${API_URL}/api/send-bulk-emails`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          recipients: allParticipants.map(p => ({ name: p.name, email: p.email })),
-          registration_id: registrationId,
-          event_name: allEventNames.join(', '),
-          pass_type: selectedPass?.name,
-          amount: selectedPass?.price,
-          college: formData.college,
-          team_members_list: allParticipants.map(p => p.name).join(', ')
-        })
-      });
-
-      if (!emailResponse.ok) {
-        const errorText = await emailResponse.text();
-        throw new Error(`Email API error: ${emailResponse.status} - ${errorText}`);
-      }
-
-      const emailResult = await emailResponse.json();
-      console.log('Email result:', emailResult);
-
-      toast.success('Registration completed successfully!');
+      
       setPaymentConfirmed(true);
       setShowSuccess(true);
     } catch (error) {
-      console.error('Payment confirmation error:', error);
+      console.error('Submission error:', error);
       toast.error(`Submission failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const upiUrl = `upi://pay?pa=tgokila459@okhdfcbank&pn=Technovate%202026&am=${selectedPass?.price || 0}&cu=INR&tn=${encodeURIComponent(`Technovate2026-${registrationId}`)}`;
+  const upiUrl = `upi://pay?pa=kavinak445@okaxis&pn=Technovate%202026&am=${selectedPass?.price || 0}&cu=INR&tn=${encodeURIComponent(`Technovate2026-${registrationId}`)}`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUrl)}`;
 
   const steps = [
@@ -277,37 +358,67 @@ const Registration = () => {
               <div className="bg-white p-4 rounded-2xl inline-block mb-4">
                 <img src={qrCodeUrl} alt="UPI QR Code" className="w-48 h-48" />
               </div>
-              <p className="font-mono text-cyan-400 mb-2">tgokila459@okhdfcbank</p>
+              <p className="font-mono text-cyan-400 mb-2">kavinak445@okaxis</p>
               <p className="text-slate-400 text-sm">UPI ID for payment</p>
             </div>
 
-            {/* Transaction ID Input */}
+            {/* Payment Screenshot Upload */}
             <div className="glass-card rounded-xl p-6 mb-6">
               <label className="block text-sm font-medium text-slate-300 mb-3">
-                UPI Transaction ID (UTR/Reference Number) *
+                Payment Screenshot *
               </label>
+              
+              {/* File Input */}
               <input
-                type="text"
-                value={transactionId}
-                onChange={(e) => setTransactionId(e.target.value)}
-                className="input-field w-full"
-                placeholder="Enter 12-digit UTR number"
-                maxLength={12}
+                type="file"
+                accept="image/png,image/jpeg,image/jpg"
+                onChange={handleFileChange}
+                className="hidden"
+                id="payment-screenshot"
               />
-              <p className="text-slate-400 text-xs mt-2">
-                Find this 12-digit number in your UPI app payment history
+              
+              {/* Upload Button */}
+              <label
+                htmlFor="payment-screenshot"
+                className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-600 rounded-xl cursor-pointer hover:border-cyan-500 hover:bg-slate-800/50 transition-all"
+              >
+                {screenshotPreview ? (
+                  <img 
+                    src={screenshotPreview} 
+                    alt="Payment Screenshot Preview" 
+                    className="h-full w-auto object-contain rounded-lg"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <svg className="w-8 h-8 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-sm text-slate-400">Click to upload screenshot</span>
+                    <span className="text-xs text-slate-500 mt-1">PNG, JPG (Max 5MB)</span>
+                  </div>
+                )}
+              </label>
+              
+              {paymentScreenshot && (
+                <p className="text-cyan-400 text-xs mt-2 text-center">
+                  ✓ {paymentScreenshot.name} selected
+                </p>
+              )}
+              
+              <p className="text-slate-400 text-xs mt-3">
+                Upload a clear screenshot of your payment confirmation from your UPI app
               </p>
             </div>
 
             <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl mb-6">
               <p className="text-amber-400 text-sm text-center">
-                <strong>Important:</strong> Enter your UPI Transaction ID after completing payment.
+                <strong>Important:</strong> Upload a clear screenshot of your payment confirmation after completing payment.
               </p>
             </div>
 
             <button
               onClick={handlePaymentConfirmation}
-              disabled={loading || !transactionId.trim()}
+              disabled={loading || !paymentScreenshot}
               className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading ? (
@@ -322,66 +433,6 @@ const Registration = () => {
                 </>
               )}
             </button>
-          </motion.div>
-        </div>
-      </div>
-    );
-  }
-
-  if (showVerificationPending) {
-    return (
-      <div className="section-padding">
-        <div className="container-wide max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="glass-card rounded-3xl p-8"
-          >
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FaCheckCircle className="w-10 h-10 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-2">Payment Details Submitted!</h2>
-              <p className="text-slate-400">Your registration is pending verification</p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-6 mb-6">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-slate-400">Registration ID</span>
-                <span className="font-mono font-bold text-cyan-400">{registrationId}</span>
-              </div>
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-slate-400">Transaction ID</span>
-                <span className="font-mono font-bold text-cyan-400">{transactionId}</span>
-              </div>
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-slate-400">Pass Type</span>
-                <span className="text-white">{selectedPass?.name}</span>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t border-slate-700">
-                <span className="text-lg font-semibold text-white">Amount</span>
-                <span className="text-3xl font-bold gradient-text">₹{selectedPass?.price}</span>
-              </div>
-            </div>
-
-            <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl mb-6">
-              <p className="text-amber-400 text-sm text-center">
-                <strong>Next Steps:</strong> Our team will verify your payment within 24 hours. You will receive a confirmation email once verified.
-              </p>
-            </div>
-
-            <button
-              onClick={() => navigate('/')}
-              className="btn-primary w-full"
-            >
-              Back to Home
-            </button>
-
-            <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
-              <p className="text-blue-400 text-sm text-center">
-                <strong>Note:</strong> Save your Registration ID for future reference.
-              </p>
-            </div>
           </motion.div>
         </div>
       </div>

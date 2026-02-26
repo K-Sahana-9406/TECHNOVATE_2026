@@ -10,7 +10,7 @@ export const events = {
       shortDescription: 'Programming, aptitude, problem-solving challenge',
       date: 'March 13, 2026',
       time: '11:00 AM - 12:00 PM',
-      venue: 'Rudra Block, IT- III year',
+      venue: 'Rudra Block',
       teamSize: '2-3 members',
       icon: FaCode,
       rounds: [
@@ -22,7 +22,7 @@ export const events = {
         { name: 'Gokila S', phone: '+91 9344682707' },
         { name: 'Reshmi R', phone: '+91 9677636575' }
       ],
-      whatsappLink: 'https://chat.whatsapp.com/code-sprint-group'
+      whatsappLink: 'https://chat.whatsapp.com/Ec8lLD8JOAfHrJXpUSn8UK?mode=gi_t'
     },
     {
       id: 'Paper Ignite',
@@ -41,7 +41,7 @@ export const events = {
         { name: 'Kalaiselvi', phone: '+91 9360459483' },
         { name: 'Ranjani S', phone: '+91 9894461422' }
       ],
-      whatsappLink: 'https://chat.whatsapp.com/debug-master-group'
+      whatsappLink: 'https://chat.whatsapp.com/Bjw1zZsOqh5Ev5isWCOagC?mode=gi_t'
     },
     {
       id: 'Tech Trace',
@@ -51,14 +51,14 @@ export const events = {
       shortDescription: 'Technical treasure hunt with multiple rounds',
       date: 'March 13, 2026',
       time: '9:00 AM - 10:30 AM',
-      venue: 'Seminar Hall, Rudra Block',
+      venue: 'Rudra Block',
       teamSize: '3-4 members',
       icon: FaSearch,
       coordinators: [
         { name: 'Mohammed Riyaz A', phone: '+91 7010559916' },
         { name: 'Sahana K', phone: '+91 9025639476' }
       ],
-      whatsappLink: 'https://chat.whatsapp.com/tech-quiz-group'
+      whatsappLink: 'https://chat.whatsapp.com/JWbXVKhLfQ9KFI9vY4wmfa?mode=gi_t'
     }
   ],
   nonTechnical: [
@@ -70,7 +70,7 @@ export const events = {
       shortDescription: 'Test observation, memory, and analytical skills',
       date: 'March 13, 2026',
       time: '11:00 AM - 12:00 PM',
-      venue: 'Seminar Hall, Rudra Block',
+      venue: 'Rudra Block',
       teamSize: '2-3 members',
       icon: FaEye,
       rounds: [
@@ -81,7 +81,7 @@ export const events = {
         { name: 'Venmani M R', phone: '+91 93422 66960' },
         { name: 'Karthiga T', phone: '+91 9894946624' }
       ],
-      whatsappLink: 'https://chat.whatsapp.com/tech-presentation-group'
+      whatsappLink: 'https://chat.whatsapp.com/KwE2ZWuhV7N673oMGCnSIY?mode=gi_t'
     },
     {
       id: 'Cinemania',
@@ -91,7 +91,7 @@ export const events = {
       shortDescription: 'Test knowledge of films through background music identification, movie acting, and image-based guessing challenges',
       date: 'March 13, 2026',
       time: '1:30 PM - 2:30 PM',
-      venue: 'Seminar Hall, Rudra Block',
+      venue: 'Rudra Block',
       venue: 'Seminar, Rudra Block',
       teamSize: '2 members',
       icon: FaFilm,
@@ -105,7 +105,7 @@ export const events = {
         { name: 'Madhumitha M', phone: '+91 8124430294' },
         { name: 'Infant Athina J', phone: '+91 8610673937' }
       ],
-      whatsappLink: 'https://chat.whatsapp.com/group-discussion-group'
+      whatsappLink: 'https://chat.whatsapp.com/LLfKyPLyn2I0l8fgtPYlai?mode=gi_t'
     }
   ]
 };
@@ -124,7 +124,7 @@ export const contactInfo = {
     website: 'https://gct.ac.in',
     linkedin: 'https://www.linkedin.com/school/gctcoimbatore/',
     instagram: 'https://www.instagram.com/ita_gct?igsh=ZWF1d2M1aHc2a2Rp',
-    whatsapp: 'https://wa.me/9025490023'
+    whatsapp: 'https://chat.whatsapp.com/LmL2KjAfJIAIgoEaK2Fjnp'
   },
   secretaries: {
     title: 'Secretaries',

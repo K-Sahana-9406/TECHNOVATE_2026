@@ -212,7 +212,7 @@ const Home = () => {
               <div className="glass-card rounded-xl px-4 py-3 md:px-6 md:py-4 border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
                 <p className="text-cyan-400 text-xs md:text-sm font-medium text-center flex items-center justify-center gap-2">
                   <span className="text-lg md:text-xl">🍽️</span>
-                  Lunch (Non-Veg) & Refreshments will be provided for everyone
+                  Lunch (Non-Veg / veg) & Refreshments will be provided for everyone
                 </p>
               </div>
             </motion.div>

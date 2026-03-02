@@ -104,7 +104,6 @@ const Home = () => {
                 />
               </div>
               <div className="text-center">
-                <p className="text-lg font-medium text-cyan-400 mb-1">Intercollege Fest</p>
                 <p className="text-3xl font-bold text-white tracking-tight">Government College of Technology</p>
               </div>
             </motion.div>
@@ -123,7 +122,6 @@ const Home = () => {
                 />
               </div>
               <div className="text-left">
-                <p className="text-xs font-medium text-cyan-400 mb-1">Intercollege Fest</p>
                 <p className="text-sm font-bold text-white tracking-tight leading-snug">Government College<br/>of Technology</p>
               </div>
             </motion.div>
@@ -133,9 +131,19 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="mb-4 md:mb-5"
+              className="mb-2 md:mb-3"
             >
               <p className="text-base md:text-xl font-medium text-cyan-400">March 13, 2026</p>
+            </motion.div>
+
+            {/* Intercollege Fest */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="mb-4 md:mb-5"
+            >
+              <p className="text-2xl md:text-5xl lg:text-3xl font-medium text-cyan-400">Intercollege Fest</p>
             </motion.div>
 
             {/* Main Title */}

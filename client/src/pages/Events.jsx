@@ -18,6 +18,134 @@ import {
 } from 'react-icons/fa';
 import { events } from '../data/events';
 
+// Event Guidelines Data
+const eventGuidelines = [
+  {
+    id: 'codextreme',
+    title: 'CODEXTREME — Event Guidelines',
+    items: [
+      'Open to 2nd and 3rd year students',
+      'Participants may compete individually or in teams of two',
+      'Registration is mandatory',
+      'The event consists of three rounds: MCQ on programming basics, tech logo identification, and final coding challenge',
+      'Programming languages allowed: Java, Python, C, and C++',
+      'Use of mobile phones, internet, or external assistance is strictly prohibited',
+      'Participants must answer within the given time limit',
+      'Winners will be decided based on accuracy, logical thinking, and time management',
+      'Participant/Team with the highest score will be declared the winner'
+    ]
+  },
+  {
+    id: 'cinemania',
+    title: 'Cinemania — Guidelines',
+    items: [
+      'Each team consists of 2 participants (teams may be grouped based on crowd)',
+      'The event will be conducted using a buzzer system — the first team to press the buzzer gets the chance to answer',
+      'Points will be awarded for correct answers',
+      'Teams must answer orally within the given time limit after pressing the buzzer',
+      'If a team fails to answer or gives a wrong answer, the question will be passed to another team',
+      'Rounds may include BGM recognition, movie connection, dumb charades, and acting-based movie guessing',
+      'Participants may take part in all rounds, and the participant/team with the highest score will be declared the winner'
+    ]
+  },
+  {
+    id: 'paperignite',
+    title: 'Paper Ignite',
+    items: [
+      'Presentations should be in PPT format',
+      'Your presentation slides should not exceed 20 slides',
+      'You should be prepared to complete your presentation within 5-6 minutes to ensure smooth flow and fairness to all participants',
+      'Avoid text-heavy slides. Instead, incorporate images, graphs, charts, and videos to make your presentation visually appealing and engaging',
+      'You can participate alone or as a team of maximum 2 members (not more than that)'
+    ]
+  },
+  {
+    id: 'techtrace',
+    title: 'TechTrace',
+    items: [
+      'Multi-round technical event testing SQL, logical thinking, debugging, and output prediction skills',
+      'The event follows a treasure hunt format where teams unlock the next clue/location after completing each round',
+      'Team event with 2–3 members per team',
+      'Participants must carry a valid college ID card',
+      'The event consists of 5 rounds (SQL challenges, debugging challenges, and output prediction)',
+      'Teams must complete each round to proceed to the next level',
+      'Only qualified teams will advance to the next round',
+      'A time limit will be given for each round',
+      'Use of mobile phones or any external help is strictly prohibited',
+      'Teams must crack the codes, complete all rounds, and finish the final treasure hunt to be declared as winners'
+    ]
+  },
+  {
+    id: 'eyespy',
+    title: 'EYESPY',
+    items: [
+      'Each team consists of 3 or 4 participants',
+      'The event will be conducted using a buzzer system',
+      'Detective-related images will be displayed for a limited time, followed by questions',
+      'Points will be awarded for correct answers',
+      'In case of a wrong answer, the opportunity passes to the next fastest buzzer',
+      'Based on performance, selected teams will proceed to the next round',
+      'A murder mystery case will be presented, and teams must investigate by asking questions within the given time limit',
+      'Teams must identify the killer with proper reasoning using the buzzer',
+      'The team with the highest score will be declared the winner'
+    ]
+  }
+];
+
+// Add guidelines to event data
+const eventsWithGuidelines = {
+  codextreme: [
+    'Open to 2nd and 3rd year students',
+    'Participants may compete individually or in teams of two',
+    'Registration is mandatory',
+    'The event consists of three rounds: MCQ on programming basics, tech logo identification, and final coding challenge',
+    'Programming languages allowed: Java, Python, C, and C++',
+    'Use of mobile phones, internet, or external assistance is strictly prohibited',
+    'Participants must answer within the given time limit',
+    'Winners will be decided based on accuracy, logical thinking, and time management',
+    'Participant/Team with the highest score will be declared the winner'
+  ],
+  cinemania: [
+    'Each team consists of 2 participants (teams may be grouped based on crowd)',
+    'The event will be conducted using a buzzer system — the first team to press the buzzer gets the chance to answer',
+    'Points will be awarded for correct answers',
+    'Teams must answer orally within the given time limit after pressing the buzzer',
+    'If a team fails to answer or gives a wrong answer, the question will be passed to another team',
+    'Rounds may include BGM recognition, movie connection, dumb charades, and acting-based movie guessing',
+    'Participants may take part in all rounds, and the participant/team with the highest score will be declared the winner'
+  ],
+  paperignite: [
+    'Presentations should be in PPT format',
+    'Your presentation slides should not exceed 20 slides',
+    'You should be prepared to complete your presentation within 5-6 minutes to ensure smooth flow and fairness to all participants',
+    'Avoid text-heavy slides. Instead, incorporate images, graphs, charts, and videos to make your presentation visually appealing and engaging',
+    'You can participate alone or as a team of maximum 2 members (not more than that)'
+  ],
+  techtrace: [
+    'Multi-round technical event testing SQL, logical thinking, debugging, and output prediction skills',
+    'The event follows a treasure hunt format where teams unlock the next clue/location after completing each round',
+    'Team event with 2–3 members per team',
+    'Participants must carry a valid college ID card',
+    'The event consists of 5 rounds (SQL challenges, debugging challenges, and output prediction)',
+    'Teams must complete each round to proceed to the next level',
+    'Only qualified teams will advance to the next round',
+    'A time limit will be given for each round',
+    'Use of mobile phones or any external help is strictly prohibited',
+    'Teams must crack the codes, complete all rounds, and finish the final treasure hunt to be declared as winners'
+  ],
+  eyespy: [
+    'Each team consists of 3 or 4 participants',
+    'The event will be conducted using a buzzer system',
+    'Detective-related images will be displayed for a limited time, followed by questions',
+    'Points will be awarded for correct answers',
+    'In case of a wrong answer, the opportunity passes to the next fastest buzzer',
+    'Based on performance, selected teams will proceed to the next round',
+    'A murder mystery case will be presented, and teams must investigate by asking questions within the given time limit',
+    'Teams must identify the killer with proper reasoning using the buzzer',
+    'The team with the highest score will be declared the winner'
+  ]
+};
+
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [expandedEvent, setExpandedEvent] = useState(null);
@@ -27,6 +155,8 @@ const Events = () => {
   }, []);
 
   const EventCard = ({ event }) => {
+    const eventGuidelines = eventsWithGuidelines[event.id] || [];
+    
     return (
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -65,6 +195,8 @@ const Events = () => {
             View <FaArrowRight className="w-3 h-3" />
           </span>
         </div>
+        
+       
       </motion.div>
     );
   };
@@ -152,11 +284,26 @@ const Events = () => {
                     {event.coordinators.map((coord, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-xs mb-1">
                         <span className="text-white">{coord.name}</span>
-                        <a href={`tel:${coord.phone.replace(/\s/g, '')}`} className="text-cyan-400">
+                        <a href={`tel:${coord.phone.replace(/\\s/g, '')}`} className="text-cyan-400">
                           {coord.phone}
                         </a>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {/* Guidelines Section */}
+                {eventsWithGuidelines[event.id] && eventsWithGuidelines[event.id].length > 0 && (
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold text-cyan-400 mb-2">Guidelines:</p>
+                    <ul className="space-y-1 max-h-32 overflow-y-auto">
+                      {eventsWithGuidelines[event.id].map((guideline, idx) => (
+                        <li key={idx} className="flex items-start gap-1 text-xs">
+                          <span className="text-cyan-400 mt-1">•</span>
+                          <span className="text-slate-300">{guideline}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
 
@@ -303,6 +450,26 @@ const Events = () => {
                 </div>
               </div>
 
+              {/* Guidelines */}
+              {eventsWithGuidelines[event.id] && eventsWithGuidelines[event.id].length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                    <FaListOl className="w-5 h-5 text-cyan-400" />
+                    Event Guidelines
+                  </h3>
+                  <div className="space-y-3">
+                    {eventsWithGuidelines[event.id].map((guideline, idx) => (
+                      <div key={idx} className="glass-card rounded-xl p-4 flex gap-3">
+                        <span className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                          {String.fromCharCode(65 + idx)}
+                        </span>
+                        <p className="text-slate-300 text-sm pt-1">{guideline}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* WhatsApp Link */}
               <a
                 href={event.whatsappLink}
@@ -359,7 +526,7 @@ const Events = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
             <p className="text-amber-300 text-center text-base md:text-lg font-medium">
-              <strong>Important Notice:</strong> Team size may be adjusted based on event requirements and scenario.
+              <strong>Important Notice:</strong> Team size may be adjusted based on event requirements and scenario.Refer Guidelines which is attached below
             </p>
           </div>
         </motion.div>

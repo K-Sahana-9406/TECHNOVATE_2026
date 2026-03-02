@@ -104,6 +104,7 @@ const Home = () => {
                 />
               </div>
               <div className="text-center">
+                <p className="text-lg font-medium text-cyan-400 mb-1">Intercollege Fest</p>
                 <p className="text-3xl font-bold text-white tracking-tight">Government College of Technology</p>
               </div>
             </motion.div>
@@ -122,6 +123,7 @@ const Home = () => {
                 />
               </div>
               <div className="text-left">
+                <p className="text-xs font-medium text-cyan-400 mb-1">Intercollege Fest</p>
                 <p className="text-sm font-bold text-white tracking-tight leading-snug">Government College<br/>of Technology</p>
               </div>
             </motion.div>

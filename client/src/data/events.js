@@ -11,7 +11,7 @@ export const events = {
       date: 'March 13, 2026',
       time: '11:00 AM - 12:00 PM',
       venue: 'Rudra Block',
-      teamSize: '2-3 members',
+      teamSize: '1-2 members',
       icon: FaCode,
       rounds: [
         'Round 1: Logo identification - Participants identify programming language logos shown in a slideshow and answer.',
@@ -25,7 +25,7 @@ export const events = {
       whatsappLink: 'https://chat.whatsapp.com/Ec8lLD8JOAfHrJXpUSn8UK?mode=gi_t'
     },
     {
-      id: 'Paper Ignite',
+      id: 'paperignite',
       name: 'Paper Ignite',
       type: 'technical',
       description: 'PaperIgnite is a paper presentation event where participants present innovative ideas, research findings, and creative concepts. The event encourages knowledge sharing, critical thinking, and presentation skills, allowing teams to showcase their unique perspectives and shine with groundbreaking ideas.',
@@ -33,7 +33,7 @@ export const events = {
       date: 'March 13, 2026',
       time: '09:00 AM - 10:30 AM',
       venue: 'Rudra block',
-      teamSize: '3-4 members',
+      teamSize: '1-2 members',
       icon: FaLightbulb,
       rounds: [
       ],
@@ -44,7 +44,7 @@ export const events = {
       whatsappLink: 'https://chat.whatsapp.com/Bjw1zZsOqh5Ev5isWCOagC?mode=gi_t'
     },
     {
-      id: 'Tech Trace',
+      id: 'techtrace',
       name: 'Tech Trace',
       type: 'technical',
       description: 'TechTrace is an exciting technical treasure hunt that challenges participants to explore databases, debug errors, write SQL queries, and decode hidden clues. The event tests analytical thinking, SQL knowledge, and problem-solving skills in a fast-paced competitive environment.',
@@ -52,7 +52,7 @@ export const events = {
       date: 'March 13, 2026',
       time: '9:00 AM - 10:30 AM',
       venue: 'Rudra Block',
-      teamSize: '3-4 members',
+      teamSize: '2-3 members',
       icon: FaSearch,
       coordinators: [
         { name: 'Mohammed Riyaz A', phone: '+91 7010559916' },
@@ -63,7 +63,7 @@ export const events = {
   ],
   nonTechnical: [
     {
-      id: 'EyeSpy',
+      id: 'eyespy',
       name: 'EyeSpy',
       type: 'non-technical',
       description: 'Eyespy is a detective challenge that tests participants’ observation, memory, and analytical skills through crime scene analysis and interrogation-based problem solving.',
@@ -71,7 +71,7 @@ export const events = {
       date: 'March 13, 2026',
       time: '11:00 AM - 12:00 PM',
       venue: 'Rudra Block',
-      teamSize: '2-3 members',
+      teamSize: '3-4 members',
       icon: FaEye,
       rounds: [
         'Round 1: Observation Challenge - Participants observe a scene or image for 30 seconds and answer questions based on details and clues.',
@@ -84,7 +84,7 @@ export const events = {
       whatsappLink: 'https://chat.whatsapp.com/KwE2ZWuhV7N673oMGCnSIY?mode=gi_t'
     },
     {
-      id: 'Cinemania',
+      id: 'cinemania',
       name: 'Cinemania',
       type: 'non-technical',
       description: 'CineMania is an exciting movie-based quiz that tests participants’ knowledge of films through background music identification, movie acting, and image-based guessing challenges.',

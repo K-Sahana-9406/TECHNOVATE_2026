@@ -36,11 +36,12 @@ export const events = {
       teamSize: '1-2 members',
       icon: FaLightbulb,
       topics: [
-        'Artificial Intelligence and Machine Learning',
-        'Internet of Things (IoT) Applications',
-        'Blockchain Technology and Cryptocurrencies',
-        'Cloud Computing and Serverless Architecture',
-        'Cybersecurity in Modern Digital World'
+        'Artificial Intelligence & Intelligent Systems',
+        'Cybersecurity & Digital Forensics',
+        'Cloud Computing & Distributed Systems',
+        'Blockchain & Web3 Technologies',
+        'IoT & Smart Technologies',
+        'Agentic AI & Autonomous Workflows'
       ],
       coordinators: [
         { name: 'Kalaiselvi', phone: '+91 9360459483' },

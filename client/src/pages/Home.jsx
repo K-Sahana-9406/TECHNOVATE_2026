@@ -477,8 +477,8 @@ const Home = () => {
               {[
         { name: 'Individual Pass', price: '₹200', members: '1 Member', icon: FaUser, desc: 'Full access to all events' },
               { name: 'Duo Pass', price: '₹350', members: '2 Members', icon: FaUsers, desc: 'Perfect for pairs' },
-              { name: 'Quad Pass', price: '₹700', members: '3 Members', icon: FaUsers, desc: 'Great for small teams' },
-              { name: 'Octa Pass', price: '₹1400', members: '4 Members', icon: FaUsers, desc: 'Best value for teams' }
+              { name: 'Quad Pass', price: '₹700', members: '4 Members', icon: FaUsers, desc: 'Great for small teams' },
+              { name: 'Octa Pass', price: '₹1400', members: '8 Members', icon: FaUsers, desc: 'Best value for teams' }
               ].map((pass, index) => (
                 <motion.div
                   key={pass.name}

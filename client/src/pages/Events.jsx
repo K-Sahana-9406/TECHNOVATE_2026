@@ -26,7 +26,6 @@ const eventGuidelines = [
     items: [
       'Open to 2nd and 3rd year students',
       'Participants may compete individually or in teams of two',
-      'Registration is mandatory',
       'The event consists of three rounds: MCQ on programming basics, tech logo identification, and final coding challenge',
       'Programming languages allowed: Java, Python, C, and C++',
       'Use of mobile phones, internet, or external assistance is strictly prohibited',
@@ -97,7 +96,6 @@ const eventsWithGuidelines = {
   codextreme: [
     'Open to 2nd and 3rd year students',
     'Participants may compete individually or in teams of two',
-    'Registration is mandatory',
     'The event consists of three rounds: MCQ on programming basics, tech logo identification, and final coding challenge',
     'Programming languages allowed: Java, Python, C, and C++',
     'Use of mobile phones, internet, or external assistance is strictly prohibited',

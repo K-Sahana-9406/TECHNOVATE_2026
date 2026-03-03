@@ -727,13 +727,23 @@ if (cleanedParticipants.length === 0) {
               
               {totalMembers > 1 ? (
                 <div className="space-y-6">
+                  <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                    <p className="text-cyan-400 font-medium">
+                      Total Members: {totalMembers} (1 Primary + {totalMembers - 1} Additional)
+                    </p>
+                  </div>
                   <p className="text-slate-400">
-                    Please enter details for {totalMembers - 1} additional member{totalMembers > 2 ? 's' : ''}:
+                    Please enter details for all {totalMembers - 1} additional member{totalMembers > 2 ? 's' : ''}:
                   </p>
                   {formData.additionalMembers.map((member, index) => (
                     <div key={index} className="glass-card rounded-xl p-6">
-                      <h3 className="font-semibold text-white mb-4">Member {index + 2}</h3>
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                          {index + 2}
+                        </span>
+                        Member {index + 2}
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <input
                           type="text"
                           placeholder="Full Name"

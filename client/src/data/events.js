@@ -35,7 +35,12 @@ export const events = {
       venue: 'Rudra block',
       teamSize: '1-2 members',
       icon: FaLightbulb,
-      rounds: [
+      topics: [
+        'Artificial Intelligence and Machine Learning',
+        'Internet of Things (IoT) Applications',
+        'Blockchain Technology and Cryptocurrencies',
+        'Cloud Computing and Serverless Architecture',
+        'Cybersecurity in Modern Digital World'
       ],
       coordinators: [
         { name: 'Kalaiselvi', phone: '+91 9360459483' },

@@ -261,22 +261,22 @@ const Events = () => {
                   <p className="text-xs text-slate-400 mb-1">Team Size: <span className="text-white">{event.teamSize}</span></p>
                 </div>
 
-                {/* Rounds Section */}
-                {event.rounds && event.rounds.length > 0 && (
+                {/* Rounds/Topics Section */}
+                {(event.rounds && event.rounds.length > 0) || (event.topics && event.topics.length > 0) ? (
                   <div className="mb-3">
-                    <p className="text-xs font-semibold text-cyan-400 mb-2">Rounds:</p>
+                    <p className="text-xs font-semibold text-cyan-400 mb-2">{event.id === 'paperignite' ? 'Topics:' : 'Rounds:'}</p>
                     <div className="space-y-2">
-                      {event.rounds.map((round, idx) => (
+                      {(event.topics || event.rounds).map((item, idx) => (
                         <div key={idx} className="flex gap-2 text-xs">
                           <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center flex-shrink-0 font-bold">
                             {idx + 1}
                           </span>
-                          <p className="text-slate-300">{round}</p>
+                          <p className="text-slate-300">{item}</p>
                         </div>
                       ))}
                     </div>
                   </div>
-                )}
+                ) : null}
 
                 {event.coordinators && (
                   <div className="mb-3">
@@ -408,25 +408,25 @@ const Events = () => {
                 </div>
               </div>
 
-              {/* Rounds */}
-              {event.rounds && (
+              {/* Rounds/Topics */}
+              {(event.rounds && event.rounds.length > 0) || (event.topics && event.topics.length > 0) ? (
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                     <FaListOl className="w-5 h-5 text-cyan-400" />
-                    Event Rounds
+                    {event.id === 'paperignite' ? 'Event Topics' : 'Event Rounds'}
                   </h3>
                   <div className="space-y-3">
-                    {event.rounds.map((round, index) => (
+                    {(event.topics || event.rounds).map((item, index) => (
                       <div key={index} className="glass-card rounded-xl p-4 flex gap-3">
                         <span className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                           {index + 1}
                         </span>
-                        <p className="text-slate-300 text-sm pt-1">{round}</p>
+                        <p className="text-slate-300 text-sm pt-1">{item}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-              )}
+              ) : null}
 
               {/* Coordinators */}
               <div className="mb-6">

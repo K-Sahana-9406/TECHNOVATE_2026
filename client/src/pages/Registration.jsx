@@ -723,60 +723,60 @@ if (cleanedParticipants.length === 0) {
 
           {step === 3 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white mb-6">Additional Members</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Additional Members</h2>
               
               {totalMembers > 1 ? (
-                <div className="space-y-6">
-                  <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
-                    <p className="text-cyan-400 font-medium">
+                <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                  <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 sticky top-0 z-10 backdrop-blur-sm">
+                    <p className="text-cyan-400 font-medium text-sm md:text-base">
                       Total Members: {totalMembers} (1 Primary + {totalMembers - 1} Additional)
                     </p>
                   </div>
-                  <p className="text-slate-400">
+                  <p className="text-slate-400 text-sm md:text-base">
                     Please enter details for all {totalMembers - 1} additional member{totalMembers > 2 ? 's' : ''}:
                   </p>
                   {formData.additionalMembers.map((member, index) => (
-                    <div key={index} className="glass-card rounded-xl p-6">
+                    <div key={index} className="glass-card rounded-xl p-4 md:p-6">
                       <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                        <span className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                           {index + 2}
                         </span>
-                        Member {index + 2}
+                        <span className="text-sm md:text-base">Member {index + 2}</span>
                       </h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                         <input
                           type="text"
                           placeholder="Full Name"
                           value={member.name}
                           onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                         />
                         <input
                           type="text"
                           placeholder="College Name"
                           value={member.college}
                           onChange={(e) => handleMemberChange(index, 'college', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                         />
                         <input
                           type="email"
                           placeholder="Email Address"
                           value={member.email}
                           onChange={(e) => handleMemberChange(index, 'email', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                         />
                         <input
                           type="tel"
                           placeholder="Phone Number"
                           value={member.phone}
                           onChange={(e) => handleMemberChange(index, 'phone', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                           maxLength={10}
                         />
                         <select
                           value={member.year}
                           onChange={(e) => handleMemberChange(index, 'year', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                         >
                           <option value="">Select Year</option>
                           <option value="1st">1st Year</option>
@@ -787,7 +787,7 @@ if (cleanedParticipants.length === 0) {
                         <select
                           value={member.lunchPreference}
                           onChange={(e) => handleMemberChange(index, 'lunchPreference', e.target.value)}
-                          className="input-field"
+                          className="input-field text-sm md:text-base py-3 md:py-4"
                         >
                           <option value="non-veg">Non-Veg</option>
                           <option value="veg">Veg</option>
@@ -832,42 +832,42 @@ if (cleanedParticipants.length === 0) {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8 pt-6 border-t border-slate-700">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8 pt-6 border-t border-slate-700">
             {step > 1 ? (
               <button
                 onClick={() => setStep(step - 1)}
-                className="btn-secondary flex items-center gap-2"
+                className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2 text-sm md:text-base"
               >
-                <FaArrowLeft className="w-5 h-5" />
+                <FaArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
                 Back
               </button>
             ) : (
-              <div />
+              <div className="hidden sm:block" />
             )}
             
             {step < 3 ? (
               <button
                 onClick={() => validateStep() && setStep(step + 1)}
-                className="btn-primary flex items-center gap-2"
+                className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 text-sm md:text-base"
               >
                 Next
-                <FaArrowRight className="w-5 h-5" />
+                <FaArrowRight className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             ) : (
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="btn-primary flex items-center gap-2 disabled:opacity-50"
+                className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 text-sm md:text-base disabled:opacity-50"
               >
                 {loading ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     Processing...
                   </>
                 ) : (
                   <>
                     Complete Registration
-                    <FaArrowRight className="w-5 h-5" />
+                    <FaArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                   </>
                 )}
               </button>

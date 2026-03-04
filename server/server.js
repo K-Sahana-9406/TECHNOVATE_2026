@@ -32,12 +32,17 @@ logger.info('Server setup starting...');
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
-// Initialize Gmail Transporter
+// Initialize SendGrid Transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: "smtp.sendgrid.net",
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    user: "apikey",
+    pass: process.env.SENDGRID_API_KEY
+  },
+  tls: {
+    rejectUnauthorized: false
   }
 });
 
@@ -56,9 +61,9 @@ app.post('/api/send-emails', async (req, res) => {
     const results = [];
 
     for (const recipient of recipients) {
-      const subject = 'Registration Confirmed – Technovate 2026 | Government College of Technology';
+      const subject = 'Registration Confirmed – Technovate 2026';
       
-      const body = `Dear ${recipient.name || 'Participant'},
+      const textBody = `Dear ${recipient.name || 'Participant'},
 
 Greetings from the Department of Information Technology!
 
@@ -83,12 +88,12 @@ Important Instructions:
 • Bring necessary materials (if required for your event).
 • Lunch (Non-Veg) and refreshments will be provided.
 
-For updates and announcements, join our official community:
-WhatsApp: https://chat.whatsapp.com/LmL2KjAfJIAIgoEaK2Fjnp
+WhatsApp Group: https://chat.whatsapp.com/LmL2KjAfJIAIgoEaK2Fjnp
 
-If you have any queries, feel free to contact us.
+For queries:
 Mobile: +91 9025490023
 Email: technovate26@gmail.com
+
 We look forward to your enthusiastic participation and wish you the very best!
 
 Let's innovate. Let's compete. Let's win.
@@ -100,15 +105,19 @@ Government College of Technology
 Coimbatore`;
 
       const mailOptions = {
-        from: `"Technovate 2026" <${process.env.FROM_EMAIL || process.env.EMAIL_USER}>`,
+        from: {
+          name: "Technovate 2026",
+          address: process.env.FROM_EMAIL || 'technovate26@gmail.com'
+        },
         to: recipient.email,
         subject: subject,
-        text: body
+        text: textBody
       };
 
+      logger.info(`Sending email to ${recipient.email}`);
       const info = await transporter.sendMail(mailOptions);
       results.push({ email: recipient.email, success: true, messageId: info.messageId });
-      logger.info(`Email sent to ${recipient.email} (Message ID: ${info.messageId})`);
+      logger.info(`✓ Email sent to ${recipient.email} - Message ID: ${info.messageId}`);
     }
 
     res.status(200).json({ success: true, results });
@@ -116,7 +125,14 @@ Coimbatore`;
 
   } catch (error) {
     logger.error(`Email sending error: ${error.message}`);
-    res.status(500).json({ success: false, error: error.message });
+    logger.error(`Error details: ${JSON.stringify(error, null, 2)}`);
+    logger.error(`Response code: ${error.responseCode}`);
+    logger.error(`Response message: ${error.response}`);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message,
+      details: error.response || 'Check server logs for details'
+    });
   }
 });
 

@@ -157,6 +157,21 @@ const Home = () => {
               <span className="gradient-text"> 2026</span>
             </motion.h1>
 
+            {/* On Spot Registration Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mb-6 md:mb-8"
+            >
+              <div className="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/50 rounded-full backdrop-blur-sm">
+                <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-green-400 font-semibold text-sm md:text-lg tracking-wide">
+                  ✨ ON SPOT REGISTRATION AVAILABLE ✨
+                </span>
+              </div>
+            </motion.div>
+
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}

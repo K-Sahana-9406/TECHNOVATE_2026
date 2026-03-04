@@ -112,16 +112,16 @@ const Home = () => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex md:hidden w-full items-center justify-center gap-3 mb-3"
+              className="flex md:hidden w-full items-center justify-center gap-2 mb-3"
             >
-              <div className="w-12 h-12 flex-shrink-0">
+              <div className="w-8 h-8 flex-shrink-0">
                 <img 
                   src={gct_logo} 
                   alt="GCT Logo" 
                   className="w-full h-full object-contain drop-shadow-lg" 
                 />
               </div>
-              <div className="text-left flex-1">
+              <div className="text-center">
                 <p className="text-xs font-bold text-white tracking-tight leading-tight whitespace-nowrap">Government College of Technology</p>
               </div>
             </motion.div>

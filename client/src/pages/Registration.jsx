@@ -490,7 +490,7 @@ if (cleanedParticipants.length === 0) {
 
             <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
               <p className="text-green-400 text-sm text-center">
-                <strong>Success!</strong> Confirmation emails have been sent to all team members. Please check your inbox.
+                <strong>Success!</strong> Confirmation emails have been sent to all team members. Please check your inbox or spam folders.
               </p>
             </div>
           </motion.div>

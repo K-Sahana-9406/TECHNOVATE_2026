@@ -114,15 +114,15 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               className="flex md:hidden w-full items-center justify-center gap-3 mb-3"
             >
-              <div className="w-14 h-14 flex-shrink-0">
+              <div className="w-12 h-12 flex-shrink-0">
                 <img 
                   src={gct_logo} 
                   alt="GCT Logo" 
                   className="w-full h-full object-contain drop-shadow-lg" 
                 />
               </div>
-              <div className="text-left">
-                <p className="text-sm font-bold text-white tracking-tight leading-snug">Government College<br/>of Technology</p>
+              <div className="text-left flex-1">
+                <p className="text-xs font-bold text-white tracking-tight leading-tight whitespace-nowrap">Government College of Technology</p>
               </div>
             </motion.div>
 
@@ -162,11 +162,11 @@ const Home = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="mb-6 md:mb-8"
+              className="mb-4 md:mb-8"
             >
-              <div className="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/50 rounded-full backdrop-blur-sm">
-                <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-green-400 font-semibold text-sm md:text-lg tracking-wide">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/50 rounded-full backdrop-blur-sm">
+                <div className="w-1.5 h-1.5 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-green-400 font-semibold text-xs md:text-lg tracking-wide">
                   ✨ ON SPOT REGISTRATION AVAILABLE ✨
                 </span>
               </div>

@@ -43,7 +43,7 @@ const Home = () => {
   const stats = [
     { icon: FaTrophy, value: '₹10,000+', label: 'Prize Pool' },
     { icon: FaLightbulb, value: '5+', label: 'Events' },
-    { icon: FaUsers, value: '500+', label: 'Participants' },
+    { icon: FaUsers, value: '50+', label: 'Participants' },
     { icon: FaGraduationCap, value: '20+', label: 'Colleges' },
   ];
 
